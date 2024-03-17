@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -16,9 +17,17 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialRoute: initialRoute,
-      getPages: Nav.routes,
+    return ScreenUtilInit(
+      designSize: const Size(400, 800),
+      minTextAdapt: true,
+      splitScreenMode: false,
+      child: MediaQuery(
+        data: const MediaQueryData(textScaler: TextScaler.linear(1.0)),
+        child: GetMaterialApp(
+          initialRoute: initialRoute,
+          getPages: Nav.routes,
+        ),
+      ),
     );
   }
 }

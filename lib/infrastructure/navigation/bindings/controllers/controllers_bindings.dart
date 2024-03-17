@@ -1,1 +1,2 @@
 export 'package:wander_ways/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
+export 'package:wander_ways/infrastructure/navigation/bindings/controllers/splash.controller.binding.dart'; 
