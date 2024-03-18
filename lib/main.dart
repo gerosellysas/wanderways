@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
+import 'infrastructure/theme/theme.dart';
 
 void main() async {
   var initialRoute = await Routes.initialRoute;
@@ -24,6 +25,11 @@ class Main extends StatelessWidget {
       child: MediaQuery(
         data: const MediaQueryData(textScaler: TextScaler.linear(1.0)),
         child: GetMaterialApp(
+          theme: ThemeData(
+            colorSchemeSeed: Hues.primary,
+            fontFamily: "NunitoSans",
+            useMaterial3: true,
+          ),
           initialRoute: initialRoute,
           getPages: Nav.routes,
         ),

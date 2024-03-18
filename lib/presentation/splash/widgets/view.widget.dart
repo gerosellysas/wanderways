@@ -15,13 +15,16 @@ class SplashView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Hues.primary,
       body: Center(
-        child: Container(
-          color: Colors.transparent,
-          height: 145.w,
-          width: 280.w,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: children!,
+        child: Hero(
+          tag: "logo",
+          child: Container(
+            height: 145.w,
+            width: 280.w,
+            padding: EdgeInsets.symmetric(vertical: 0.825.w),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: children!,
+            ),
           ),
         ),
       ),

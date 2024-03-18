@@ -36,5 +36,12 @@ class Nav {
       page: () => const SplashScreen(),
       binding: SplashControllerBinding(),
     ),
+    GetPage(
+      name: Routes.welcome,
+      page: () => const WelcomeScreen(),
+      binding: WelcomeControllerBinding(),
+      transition: Transition.downToUp,
+      transitionDuration: const Duration(milliseconds: 450),
+    ),
   ];
 }

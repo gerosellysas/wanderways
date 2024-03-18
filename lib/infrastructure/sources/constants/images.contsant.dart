@@ -5,6 +5,7 @@ class Images {
   static String en = _imagePath("en");
   static String id = _imagePath("id");
   static String logo = _imagePath("logo");
+  static String logoFull = _imagePath("logo_full");
   static String logoTag = _imagePath("logo_tag");
   static String logoTextBottom = _imagePath("logo_text_bottom");
   static String logoTextTop = _imagePath("logo_text_top");

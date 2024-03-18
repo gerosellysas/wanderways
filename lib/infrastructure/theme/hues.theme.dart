@@ -18,7 +18,9 @@ class Hues {
   );
   static const int _primaryValue = 0xFF00ADBF;
 
+  static const Color secondary = Color(0xFF93EBFF);
   static const Color accent = Color(0xFFF4CB29);
+  static const Color accentLight = Color(0xFFF5DD82);
   static const Color white = Color(0xFFFCFCFC);
   static const Color greyLightest = Color(0xFFF6F6F6);
   static const Color greyLight = Color(0xFFF1F1F1);
