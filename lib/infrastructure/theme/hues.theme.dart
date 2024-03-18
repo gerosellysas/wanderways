@@ -27,4 +27,5 @@ class Hues {
   static const Color greyDark = Color(0xFFCDCDCD);
   static const Color greyDarkest = Color(0xFF8D8D8D);
   static const Color black = Color(0xFF323232);
+  static const Color red = Color(0xFFED3241);
 }

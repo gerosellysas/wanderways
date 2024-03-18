@@ -18,9 +18,13 @@ class WelcomeNavButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavButton(
-      text: style == NavButtonStyle.outline ? 
-      selectedLanguage == 0 ? "Daftar":"Sign Up" 
-      : selectedLanguage == 0 ? "Masuk" : "Sign In",
+      text: style == NavButtonStyle.outline
+          ? selectedLanguage == 0
+              ? "Daftar"
+              : "Sign up"
+          : selectedLanguage == 0
+              ? "Masuk"
+              : "Sign in",
       textColor: Hues.primary,
       color: Hues.accent,
       splashColor: style == NavButtonStyle.outline

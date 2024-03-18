@@ -43,5 +43,12 @@ class Nav {
       transition: Transition.downToUp,
       transitionDuration: const Duration(milliseconds: 450),
     ),
+    GetPage(
+      name: Routes.signIn,
+      page: () => const SignInScreen(),
+      binding: SignInControllerBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }

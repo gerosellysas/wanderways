@@ -6,4 +6,5 @@ class Routes {
   static const home = '/home';
   static const splash = '/';
   static const welcome = '/welcome';
+  static const signIn = '/sign_in';
 }
