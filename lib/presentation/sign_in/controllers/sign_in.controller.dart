@@ -2,24 +2,31 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:wander_ways/presentation/components/components.dart';
 
-class SignInController extends GetxController {
+class SignInController extends GetxController with WidgetsBindingObserver {
   final args = Get.arguments;
+  final AppService app = Get.find<AppService>();
 
   List<TextEditingController> fieldControllers = [];
   List<FocusNode> fieldFocuses = [];
 
-  var fieldEmpties = [true.obs, true.obs];
-  var fieldErrors = [false.obs, false.obs];
+  var fieldActives = <RxBool>[];
+  var fieldEmpties = <RxBool>[];
+  var fieldErrors = <RxBool>[];
   var obscure = true.obs;
   var loading = false.obs;
 
   @override
   void onInit() {
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i <= 1; i++) {
       fieldControllers.add(TextEditingController());
       fieldFocuses.add(FocusNode());
+      fieldActives.add(false.obs);
+      fieldEmpties.add(true.obs);
+      fieldErrors.add(false.obs);
     }
+    WidgetsBinding.instance.addObserver(this);
     super.onInit();
   }
 
@@ -37,12 +44,37 @@ class SignInController extends GetxController {
     for (var focus in fieldFocuses) {
       focus.dispose();
     }
+    WidgetsBinding.instance.removeObserver(this);
     super.onClose();
   }
+
+  @override
+  void didChangeMetrics() {
+    for (var i = 0; i < fieldFocuses.length; i++) {
+      fieldActives[i].value = fieldFocuses[i].hasPrimaryFocus;
+    }
+    super.didChangeMetrics();
+  }
+
+  void onPopped(bool pop) {}
 
   void onFieldChanged(String str, int index) {
     fieldEmpties[index].value = str.isEmpty;
     fieldErrors[index].value = false;
+  }
+
+  Future<void> onFieldSubmitted(int index) async {
+    fieldActives[index].value = false;
+    if (index == 1) return onSignIn();
+    fieldFocuses[index + 1].requestFocus();
+    fieldActives[index + 1].value = true;
+  }
+
+  void onFieldTapped(int index) {
+    var activeIndex = fieldActives.indexWhere((active) => active == true.obs);
+    if (activeIndex != -1) fieldActives[activeIndex].value = false;
+    fieldFocuses[index].requestFocus();
+    fieldActives[index].value = true;
   }
 
   Future<bool> _validateEmail() async {
@@ -62,21 +94,21 @@ class SignInController extends GetxController {
   Future<bool> _validateSignIn() async {
     if (fieldErrors[0].value && fieldErrors[1].value) return false;
     if (fieldControllers[0].text.isEmpty || fieldControllers[1].text.isEmpty) {
-      fieldEmpties[0].value = fieldControllers[0].text.isEmpty;
-      fieldEmpties[1].value = fieldControllers[1].text.isEmpty;
-      fieldErrors[0].value = fieldEmpties[0].value;
-      fieldErrors[1].value = fieldEmpties[1].value;
+      for (var i = 0; i < fieldEmpties.length; i++) {
+        fieldErrors[i].value = fieldEmpties[i].value;
+      }
       return false;
     }
     return true;
   }
 
-  Future<void> onSignedIn() async {
+  Future<void> onSignIn() async {
     _validateSignIn().then((valid) async {
       if (!valid) return;
       FocusManager.instance.primaryFocus!.unfocus();
-      fieldErrors[0].value = false;
-      fieldErrors[1].value = false;
+      for (var error in fieldErrors) {
+        error.value = false;
+      }
       loading.value = true;
       var emailValid = await _validateEmail();
       var passwordValid = await _validatePassword();
@@ -91,6 +123,6 @@ class SignInController extends GetxController {
   }
 
   Future<void> goToSignUpScreen() async {
-    await Get.offNamed("/sign_up");
+    await Get.offNamed("/sign_up", arguments: args);
   }
 }

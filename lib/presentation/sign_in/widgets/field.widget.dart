@@ -6,18 +6,24 @@ class SignInEmailField extends StatelessWidget {
   final int? languageSelected;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final bool? isActive;
   final bool? isEmpty;
   final bool? isError;
   final void Function(String)? onChange;
+  final void Function(String)? onSubmit;
+  final void Function()? onTap;
 
   const SignInEmailField({
     super.key,
     this.languageSelected,
     this.controller,
     this.focusNode,
+    this.isActive,
     this.isEmpty,
     this.isError,
     this.onChange,
+    this.onSubmit,
+    this.onTap,
   });
 
   @override
@@ -26,6 +32,8 @@ class SignInEmailField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       autoFocus: false,
+      isActive: isActive!,
+      isEmpty: isEmpty!,
       isError: isError!,
       inputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
@@ -38,6 +46,8 @@ class SignInEmailField extends StatelessWidget {
               ? "Email tidak valid"
               : "Email is invalid",
       onChange: onChange,
+      onSubmit: onSubmit,
+      onTap: onTap,
     );
   }
 }
@@ -46,24 +56,28 @@ class SignInPasswordField extends StatelessWidget {
   final int? languageSelected;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final bool? isActive;
   final bool? isEmpty;
   final bool? isError;
   final bool? obscure;
   final void Function()? onObscureTap;
   final void Function(String)? onChange;
   final void Function(String)? onSubmit;
+  final void Function()? onTap;
 
   const SignInPasswordField({
     super.key,
     this.languageSelected,
     this.controller,
     this.focusNode,
+    this.isActive,
     this.isEmpty,
     this.isError,
     this.obscure,
     this.onObscureTap,
     this.onChange,
     this.onSubmit,
+    this.onTap,
   });
 
   @override
@@ -72,9 +86,11 @@ class SignInPasswordField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       autoFocus: false,
+      isActive: isActive!,
+      isEmpty: isEmpty!,
       isError: isError!,
       obscure: obscure,
-      maxLength: 6,
+      maxLength: 20,
       inputAction: TextInputAction.done,
       keyboardType: TextInputType.visiblePassword,
       labelText: languageSelected == 0 ? "Kata sandi" : "Password",
@@ -91,6 +107,7 @@ class SignInPasswordField extends StatelessWidget {
       ),
       onChange: onChange,
       onSubmit: onSubmit,
+      onTap: onTap,
     );
   }
 }

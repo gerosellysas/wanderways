@@ -10,6 +10,7 @@ class SignInView extends StatelessWidget {
   final Widget? nameField;
   final Widget? passwordField;
   final Widget? navButton;
+  final void Function(bool)? onPop;
   final void Function()? onSignUpTap;
 
   const SignInView({
@@ -18,74 +19,81 @@ class SignInView extends StatelessWidget {
     this.nameField,
     this.passwordField,
     this.navButton,
+    this.onPop,
     this.onSignUpTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Hues.greyLightest,
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 48.w),
-        child: Column(
-          children: [
-            SizedBox(height: 100.h),
-            Center(
-              child: SvgPicture.asset(
-                Images.logo,
-                fit: BoxFit.contain,
-                height: 110.h,
-                width: 140.w,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: onPop,
+      child: Scaffold(
+        backgroundColor: Hues.greyLightest,
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 48.w),
+          child: Column(
+            children: [
+              SizedBox(height: 100.h),
+              Center(
+                child: SvgPicture.asset(
+                  Images.logo,
+                  fit: BoxFit.contain,
+                  height: 110.h,
+                  width: 140.w,
+                ),
               ),
-            ),
-            SizedBox(height: 24.h),
-            Text(
-              languageSelected == 0
-                  ? "Mulai perjalanan Anda!"
-                  : "Start your journey!",
-              style: Fonts.bold(
-                size: 20,
-                color: Hues.primary,
-              ),
-            ),
-            SizedBox(height: 36.h),
-            nameField!,
-            SizedBox(height: 12.h),
-            passwordField!,
-            SizedBox(height: 12.h),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                languageSelected == 0 ? "Lupa kata sandi?" : "Forgot password?",
-                style: Fonts.semiBoldItalic(
+              SizedBox(height: 24.h),
+              Text(
+                languageSelected == 0
+                    ? "Mulai perjalanan Anda!"
+                    : "Start your journey!",
+                style: Fonts.bold(
+                  size: 20,
                   color: Hues.primary,
                 ),
               ),
-            ),
-            SizedBox(height: 36.h),
-            navButton!,
-            const Expanded(child: SizedBox()),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: languageSelected == 0
-                    ? "Belum mempunyai akun? "
-                    : "Don't have an account? ",
-                style: Fonts.regular(),
-                children: [
-                  TextSpan(
-                    text: languageSelected == 0 ? " Daftar" : " Sign up",
-                    style: Fonts.semiBold(
-                      color: Hues.primary,
-                    ),
-                    recognizer: TapGestureRecognizer()..onTap = onSignUpTap,
+              SizedBox(height: 36.h),
+              nameField!,
+              SizedBox(height: 12.h),
+              passwordField!,
+              SizedBox(height: 12.h),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  languageSelected == 0
+                      ? "Lupa kata sandi?"
+                      : "Forgot password?",
+                  style: Fonts.semiBoldItalic(
+                    color: Hues.primary,
                   ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(height: 48.h),
-          ],
+              SizedBox(height: 36.h),
+              navButton!,
+              const Expanded(child: SizedBox()),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: languageSelected == 0
+                      ? "Belum mempunyai akun? "
+                      : "Don't have an account? ",
+                  style: Fonts.regular(),
+                  children: [
+                    TextSpan(
+                      text: languageSelected == 0 ? " Daftar" : " Sign up",
+                      style: Fonts.semiBold(
+                        color: Hues.primary,
+                      ),
+                      recognizer: TapGestureRecognizer()..onTap = onSignUpTap,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 48.h),
+            ],
+          ),
         ),
       ),
     );
