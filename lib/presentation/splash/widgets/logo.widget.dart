@@ -13,7 +13,7 @@ class SplashLogo extends StatelessWidget {
   });
 
   Animation<double> get _topPadding => Tween<double>(
-        begin: 14.5.w,
+        begin: 14.5.h,
         end: 0,
       ).animate(
         CurvedAnimation(
@@ -38,11 +38,16 @@ class SplashLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: animation!,
-        child: SvgPicture.asset(
-          Images.logo,
-          fit: BoxFit.contain,
-          height: 117.w,
+        child: Container(
+          height: 117.h,
           width: 150.w,
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            Images.logo,
+            fit: BoxFit.contain,
+            height: 117.h,
+            width: 150.w,
+          ),
         ),
         builder: (context, child) {
           return Padding(

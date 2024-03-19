@@ -10,11 +10,20 @@ class WelcomeLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: "logo",
-      child: SvgPicture.asset(
-        Images.logoFull,
-        fit: BoxFit.contain,
+      child: SizedBox(
         height: 145.h,
         width: 280.w,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            SvgPicture.asset(
+              Images.logoFull,
+              fit: BoxFit.contain,
+              height: 145.h,
+              width: 280.w,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -13,7 +13,7 @@ class SplashLogoTag extends StatelessWidget {
   });
 
   Animation<double> get _padding => Tween<double>(
-        begin: 14.5.w,
+        begin: 14.5.h,
         end: 0,
       ).animate(
         CurvedAnimation(
@@ -32,11 +32,16 @@ class SplashLogoTag extends StatelessWidget {
         children: [
           AnimatedBuilder(
               animation: animation!,
-              child: SvgPicture.asset(
-                Images.logoTag,
-                fit: BoxFit.contain,
-                height: 14.5.w,
+              child: Container(
+                height: 14.5.h,
                 width: 280.w,
+                alignment: Alignment.center,
+                child: SvgPicture.asset(
+                  Images.logoTag,
+                  fit: BoxFit.contain,
+                  height: 14.5.h,
+                  width: 280.w,
+                ),
               ),
               builder: (context, child) {
                 return Padding(
@@ -45,9 +50,9 @@ class SplashLogoTag extends StatelessWidget {
                 );
               }),
           Container(
-            height: 14.5.w,
+            height: 14.5.h,
             width: 280.w,
-            margin: EdgeInsets.only(bottom: 14.5.w),
+            margin: EdgeInsets.only(bottom: 14.5.h),
             color: Hues.primary,
           ),
         ],

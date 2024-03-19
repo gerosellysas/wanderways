@@ -13,7 +13,7 @@ class SplashLogoText extends StatelessWidget {
   });
 
   Animation<double> get _topPadding => Tween<double>(
-        begin: 14.5.w,
+        begin: 14.5.h,
         end: 0,
       ).animate(
         CurvedAnimation(
@@ -23,7 +23,7 @@ class SplashLogoText extends StatelessWidget {
         ),
       );
 
-  Animation<double> get _opacity => Tween<double>(
+  Animation<double> get _fadeIn => Tween<double>(
         begin: 0,
         end: 1,
       ).animate(
@@ -34,9 +34,20 @@ class SplashLogoText extends StatelessWidget {
         ),
       );
 
+  Animation<double> get _fadeOut => Tween<double>(
+        begin: 1,
+        end: 0,
+      ).animate(
+        CurvedAnimation(
+          parent: animation!,
+          curve: const Interval(0.45, 0.5),
+          reverseCurve: const Interval(0.45, 0.5),
+        ),
+      );
+
   Animation<double> _padding({required double endTween}) => Tween<double>(
         begin: 0,
-        end: endTween.w,
+        end: endTween,
       ).animate(
         CurvedAnimation(
           parent: animation!,
@@ -52,62 +63,88 @@ class SplashLogoText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 34.17.w),
+          SizedBox(height: 34.17.h),
           Stack(
             children: [
               AnimatedBuilder(
                   animation: animation!,
-                  child: SvgPicture.asset(
-                    Images.logoTextTop,
-                    fit: BoxFit.contain,
-                    height: 38.w,
+                  child: Container(
+                    height: 38.h,
                     width: 134.w,
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      Images.logoTextTop,
+                      fit: BoxFit.contain,
+                      height: 38.h,
+                      width: 134.w,
+                    ),
                   ),
                   builder: (context, child) {
                     return Padding(
                       padding: EdgeInsets.only(
-                        left: _padding(endTween: 146).value,
+                        left: _padding(endTween: 146.w).value,
                       ),
                       child: FadeTransition(
-                        opacity: _opacity,
+                        opacity: _fadeIn,
                         child: child!,
                       ),
                     );
                   }),
-              Container(
-                height: 38.w,
-                width: 146.w,
-                color: Hues.primary,
-              ),
+              AnimatedBuilder(
+                  animation: animation!,
+                  child: Container(
+                    height: 38.h,
+                    width: 146.w,
+                    color: Hues.primary,
+                  ),
+                  builder: (context, child) {
+                    return FadeTransition(
+                      opacity: _fadeOut,
+                      child: child,
+                    );
+                  }),
             ],
           ),
-          SizedBox(height: 8.w),
+          SizedBox(height: 10.h),
           Stack(
             children: [
               AnimatedBuilder(
                   animation: animation!,
-                  child: SvgPicture.asset(
-                    Images.logoTextBottom,
-                    fit: BoxFit.contain,
-                    height: 38.w,
-                    width: 78.w,
+                  child: Container(
+                    height: 36.h,
+                    width: 77.w,
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      Images.logoTextBottom,
+                      fit: BoxFit.contain,
+                      height: 36.h,
+                      width: 77.w,
+                    ),
                   ),
                   builder: (context, child) {
                     return Padding(
                       padding: EdgeInsets.only(
-                        left: _padding(endTween: 124.06).value,
+                        left: _padding(endTween: 125.13.w).value,
                       ),
                       child: FadeTransition(
-                        opacity: _opacity,
+                        opacity: _fadeIn,
                         child: child!,
                       ),
                     );
                   }),
-              Container(
-                height: 38.w,
-                width: 124.06.w,
-                color: Hues.primary,
-              ),
+              AnimatedBuilder(
+                  animation: animation!,
+                  child: Container(
+                    height: 36.h,
+                    width: 125.13.w,
+                    color: Hues.primary,
+                  ),
+                  builder: (context, child) {
+                    return FadeTransition(
+                      opacity: _fadeOut,
+                      child: child,
+                    );
+                  }),
             ],
           ),
         ],
