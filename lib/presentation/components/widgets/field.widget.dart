@@ -11,8 +11,6 @@ class Field extends StatelessWidget {
   final bool? isEmpty;
   final bool? isError;
   final bool? autoFocus;
-  final bool? enabled;
-  final bool? enableInteractiveSelection;
   final bool? obscure;
   final List<TextInputFormatter>? formatters;
   final TextInputAction? inputAction;
@@ -32,12 +30,10 @@ class Field extends StatelessWidget {
     this.w,
     this.controller,
     this.focusNode,
-    this.isActive,
+    this.isActive = false,
     this.isEmpty = true,
     this.isError = false,
     this.autoFocus,
-    this.enabled,
-    this.enableInteractiveSelection,
     this.obscure,
     this.formatters,
     this.inputAction,
@@ -72,8 +68,6 @@ class Field extends StatelessWidget {
                 controller: controller,
                 focusNode: focusNode,
                 autofocus: autoFocus ?? true,
-                enabled: enabled ?? true,
-                enableInteractiveSelection: enableInteractiveSelection,
                 obscureText: obscure ?? false,
                 cursorWidth: 1.75,
                 cursorColor: Hues.primary,
@@ -92,7 +86,13 @@ class Field extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(_radius),
                     borderSide: BorderSide(
-                      color: isError == true ? Hues.red : Hues.greyDarkest,
+                      color: isError == true
+                          ? Hues.red
+                          : isActive == true
+                              ? Hues.primary
+                              : isEmpty == true
+                                  ? Hues.greyDarkest
+                                  : Hues.primary,
                     ),
                   ),
                   disabledBorder: OutlineInputBorder(
@@ -100,10 +100,10 @@ class Field extends StatelessWidget {
                     borderSide: BorderSide(
                       color: isError == true
                           ? Hues.red
-                          : isActive != null && isActive == true
+                          : isActive == true
                               ? Hues.primary
                               : Hues.greyDarkest,
-                      width: isActive != null && isActive == true ? 1.5 : 1,
+                      width: isActive == true ? 1.5 : 1,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -119,11 +119,17 @@ class Field extends StatelessWidget {
                     color: Hues.greyDarkest,
                   ),
                   floatingLabelStyle: Fonts.regular(
-                    color: isError == true ? Hues.red : Hues.primary,
+                    color: isError == true
+                        ? Hues.red
+                        : isActive == true
+                            ? Hues.primary
+                            : isEmpty == true
+                                ? Hues.greyDarkest
+                                : Hues.primary,
                   ),
                   hintText: hintText,
                   hintStyle: Fonts.regular(
-                    color: isActive != null && isActive == true
+                    color: isActive == true
                         ? Hues.black
                         : isEmpty == true
                             ? Hues.greyDarkest

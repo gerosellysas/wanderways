@@ -32,7 +32,7 @@ class WelcomeScreen extends GetView<WelcomeController> {
               signUpNav: WelcomeNavButton(
                 selectedLanguage: c.language.value,
                 style: NavButtonStyle.outline,
-                onTap: () {},
+                onTap: () => c.goToSignScreen(1),
               ),
             ));
       },

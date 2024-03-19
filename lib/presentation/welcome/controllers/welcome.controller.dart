@@ -45,7 +45,7 @@ class WelcomeController extends GetxController
 
   Future<void> goToSignScreen(int index) async {
     await Get.toNamed(
-      "/sign_in",
+      index == 0 ? "/sign_in" : "/sign_up",
       arguments: language.value,
     );
   }

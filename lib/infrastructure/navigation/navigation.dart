@@ -50,5 +50,12 @@ class Nav {
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: Routes.signUp,
+      page: () => const SignUpScreen(),
+      binding: SignUpControllerBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }

@@ -21,7 +21,7 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Hues.white,
+      color: Hues.greyLightest,
       child: Column(
         children: [
           SizedBox(height: ScreenUtil().statusBarHeight),

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:wander_ways/presentation/components/components.dart';
 
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 import 'infrastructure/theme/theme.dart';
 
 void main() async {
+  Get.lazyPut<AppService>(() => AppService(), fenix: true);
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
 }
