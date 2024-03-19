@@ -59,9 +59,8 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
 
   @override
   void didChangeMetrics() {
-    if (app.bottomHeight.value <= 0.0) {
-      var activeIndex = fieldActives.indexWhere((active) => active == true.obs);
-      if (activeIndex != -1) fieldActives[activeIndex].value = false;
+    for (var i = 0; i < fieldFocuses.length; i++) {
+      fieldActives[i].value = fieldFocuses[i].hasPrimaryFocus;
     }
     super.didChangeMetrics();
   }

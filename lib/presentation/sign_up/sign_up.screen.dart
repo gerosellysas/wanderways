@@ -13,6 +13,7 @@ class SignUpScreen extends GetView<SignUpController> {
         init: controller,
         builder: (c) {
           return SignUpView(
+            languageSelected: c.args,
             firstNameField: Obx(() => SignUpFirstNameField(
                   languageSelected: c.args,
                   controller: c.fieldControllers[0],
