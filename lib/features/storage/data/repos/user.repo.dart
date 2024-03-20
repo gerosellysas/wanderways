@@ -9,7 +9,7 @@ class UserRepo implements IStorage {
 
   final DBService _service;
 
-  final String _table = "user_table";
+  static const String _table = "user_table";
 
   @override
   Future<List<User>> fetchAll({Map<String, dynamic>? params}) async {

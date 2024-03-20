@@ -9,7 +9,7 @@ class PurchaseRepo implements IStorage {
 
   final DBService _service;
 
-  final String _table = "purchase_table";
+  static const String _table = "purchase_table";
 
   @override
   Future<List<Purchase>> fetchAll({Map<String, dynamic>? params}) async {
