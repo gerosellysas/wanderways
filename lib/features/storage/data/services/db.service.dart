@@ -14,28 +14,28 @@ class DBService {
   static const _dbName = "wanderways.db";
   static const _dbVersion = 1;
 
-  final String _userTable = "user_table";
-  final String _purchaseTable = "purchase_table";
+  static const String _userTable = "user_table";
+  static const String _purchaseTable = "purchase_table";
 
-  final String _colUser1 = "id";
-  final String _colUser2 = "first_name";
-  final String _colUser3 = "last_name";
-  final String _colUser4 = "email";
-  final String _colUser5 = "phone";
-  final String _colUser6 = "password";
-  final String _colUser7 = "created_at";
-  final String _colUser8 = "update_at";
+  static const String _colUser1 = "id";
+  static const String _colUser2 = "first_name";
+  static const String _colUser3 = "last_name";
+  static const String _colUser4 = "email";
+  static const String _colUser5 = "phone";
+  static const String _colUser6 = "password";
+  static const String _colUser7 = "created_at";
+  static const String _colUser8 = "update_at";
 
-  final String _colPurchase1 = "id";
-  final String _colPurchase2 = "uid";
-  final String _colPurchase3 = "booking_number";
-  final String _colPurchase4 = "passenger";
-  final String _colPurchase5 = "seat";
-  final String _colPurchase6 = "tid";
-  final String _colPurchase7 = "total_price";
-  final String _colPurchase8 = "payment_status";
-  final String _colPurchase9 = "created_at";
-  final String _colPurchase10 = "paid_at";
+  static const String _colPurchase1 = "id";
+  static const String _colPurchase2 = "uid";
+  static const String _colPurchase3 = "booking_number";
+  static const String _colPurchase4 = "passenger";
+  static const String _colPurchase5 = "seat";
+  static const String _colPurchase6 = "tid";
+  static const String _colPurchase7 = "total_price";
+  static const String _colPurchase8 = "payment_status";
+  static const String _colPurchase9 = "created_at";
+  static const String _colPurchase10 = "paid_at";
 
   Future<Database> get database async {
     if (_db != null) return _db!;
