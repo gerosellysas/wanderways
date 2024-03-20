@@ -2,8 +2,8 @@ import '../../domain/storage.domain.dart';
 import '../dto/purchase.dto.dart';
 import '../services/db.service.dart';
 
-class PurchaseRepo implements IStorage {
-  PurchaseRepo({
+class DBPurchaseRepo implements IStorage {
+  DBPurchaseRepo({
     DBService? service,
   }) : _service = service ?? DBService();
 
