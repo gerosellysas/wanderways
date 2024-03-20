@@ -18,14 +18,17 @@ class SecureStorageService {
   }
 
   Future<void> write(String key, String value) async {
-    _secureStorage!.write(key: key, value: value);
+    FlutterSecureStorage? sStorage = await secureStorage;
+    return await sStorage.write(key: key, value: value);
   }
 
   Future<String?> read(String key) async {
-    return await _secureStorage!.read(key: key);
+    FlutterSecureStorage? sStorage = await secureStorage;
+    return await sStorage.read(key: key);
   }
 
   Future<void> delete(String key) async {
-    _secureStorage!.delete(key: key);
+    FlutterSecureStorage? sStorage = await secureStorage;
+    return await sStorage.delete(key: key);
   }
 }
