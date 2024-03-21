@@ -90,8 +90,8 @@ class StorageService extends GetxService {
     );
   }
 
-  Future<String> loadPrefLanguage() async {
-    return await _read(_prefLanguageRepo).invoke() as String;
+  Future<int> loadPrefLanguage() async {
+    return await _read(_prefLanguageRepo).invoke() as int;
   }
 
   Future<void> removePrefLanguage() async {
