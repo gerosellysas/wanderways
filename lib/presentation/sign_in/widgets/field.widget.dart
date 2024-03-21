@@ -35,6 +35,7 @@ class SignInEmailField extends StatelessWidget {
       isActive: isActive!,
       isEmpty: isEmpty!,
       isError: isError!,
+      capitalization: TextCapitalization.words,
       inputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       labelText: "Email",

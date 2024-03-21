@@ -13,6 +13,7 @@ class Field extends StatelessWidget {
   final bool? autoFocus;
   final bool? obscure;
   final List<TextInputFormatter>? formatters;
+  final TextCapitalization? capitalization;
   final TextInputAction? inputAction;
   final TextInputType? keyboardType;
   final TextAlign? textAlign;
@@ -36,6 +37,7 @@ class Field extends StatelessWidget {
     this.autoFocus,
     this.obscure,
     this.formatters,
+    this.capitalization,
     this.inputAction,
     this.keyboardType,
     this.textAlign,
@@ -71,11 +73,12 @@ class Field extends StatelessWidget {
                 obscureText: obscure ?? false,
                 cursorWidth: 1.75,
                 cursorColor: Hues.primary,
-                keyboardType: keyboardType ?? TextInputType.phone,
+                keyboardType: keyboardType,
                 magnifierConfiguration: TextMagnifierConfiguration.disabled,
                 maxLength: maxLength,
                 style: Fonts.regular(),
                 textAlign: textAlign ?? TextAlign.start,
+                textCapitalization: capitalization ?? TextCapitalization.none,
                 textInputAction: inputAction ?? TextInputAction.done,
                 inputFormatters: formatters,
                 onChanged: onChange,
