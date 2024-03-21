@@ -7,9 +7,11 @@ import 'package:wander_ways/presentation/components/components.dart';
 class SignInController extends GetxController with WidgetsBindingObserver {
   final args = Get.arguments;
   final AppService app = Get.find<AppService>();
+  final StorageService _storage = Get.find<StorageService>();
 
-  List<TextEditingController> fieldControllers = [];
-  List<FocusNode> fieldFocuses = [];
+  var fieldControllers = <TextEditingController>[];
+  var fieldFocuses = <FocusNode>[];
+  var _uid = -1;
 
   var fieldActives = <RxBool>[];
   var fieldEmpties = <RxBool>[];
@@ -78,13 +80,17 @@ class SignInController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<bool> _validateEmail() async {
-    // todo: validate registered email from db
-    return EmailValidator.validate(fieldControllers[0].text);
+    var validFormat = EmailValidator.validate(fieldControllers[0].text);
+    if (!validFormat) return validFormat;
+    _uid = _storage.listUser.indexWhere(
+      (u) => u.email == fieldControllers[0].text,
+    );
+    return _uid != -1;
   }
 
   Future<bool> _validatePassword() async {
-    // todo: validate password from registered email
-    return fieldControllers[1].text == "123456";
+    if (_uid == -1) return false;
+    return fieldControllers[1].text == _storage.listUser[_uid].password;
   }
 
   void onObscureTapped() {
@@ -112,14 +118,22 @@ class SignInController extends GetxController with WidgetsBindingObserver {
       loading.value = true;
       var emailValid = await _validateEmail();
       var passwordValid = await _validatePassword();
-      Future.delayed(const Duration(seconds: 2), () async {
-        loading.value = false;
+      Future.delayed(const Duration(seconds: 2), () {
         fieldErrors[0].value = !emailValid;
         fieldErrors[1].value = !passwordValid;
-        if (fieldErrors.contains(true.obs)) return;
-        Get.offAllNamed("/home", arguments: args);
+        if (fieldErrors.contains(true.obs)) return loading.value = false;
+        _storage
+            .fetchSingleUser(_uid)
+            .then((u) => _storage.user.value = u!)
+            .then((u) => _storage.saveLoggedUser(u.email!))
+            .then((_) => _onSuccessSignIn());
       });
     });
+  }
+
+  Future<void> _onSuccessSignIn() async {
+    loading.value = false;
+    await Get.offAllNamed("/home", arguments: args);
   }
 
   Future<void> goToSignUpScreen() async {

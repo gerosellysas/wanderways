@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart'
     show User;
 import 'package:wander_ways/presentation/components/components.dart';
-import 'package:wander_ways/presentation/sign_up/overlays/sign_up.overlays.dart';
+
+import '../overlays/sign_up.overlays.dart';
 
 class SignUpController extends GetxController with WidgetsBindingObserver {
   final args = Get.arguments;
@@ -167,14 +168,13 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
       var passValid = await _validatePassword();
       var confirmPassValid = await _validateConfirmPass();
       Future.delayed(const Duration(seconds: 2), () {
-        loading.value = false;
         fieldErrors[0].value = !firstNameValid;
         fieldErrors[1].value = !lastNameValid;
         fieldErrors[2].value = !emailValid;
         fieldErrors[3].value = !phoneValid;
         fieldErrors[4].value = !passValid;
         fieldErrors[5].value = !confirmPassValid;
-        if (fieldErrors.contains(true.obs)) return;
+        if (fieldErrors.contains(true.obs)) return loading.value = false;
         var user = User(
           firstName: fieldControllers[0].text,
           lastName: fieldControllers[1].text,
@@ -182,18 +182,21 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
           phone: fieldControllers[3].text,
           password: fieldControllers[4].text,
         );
-        _storage.upsertUser(user).then((_) => _onSuccessSignUp());
+        _storage
+            .upsertUser(user)
+            .then((_) => _storage.fetchAllUser())
+            .then((users) => _storage.listUser.assignAll(users))
+            .then((_) => _onSuccessSignUp());
       });
     });
   }
 
-  void _onSuccessSignUp() {
-    Get.off(
+  Future<void> _onSuccessSignUp() async {
+    loading.value = false;
+    await Get.off(
       () => SignUpOverlaySuccess(
         languageSelected: args,
-        onSignInTap: () async {
-          await Get.offNamed("/sign_in", arguments: args);
-        },
+        onSignInTap: goToSignInScreen,
       ),
       transition: Transition.cupertinoDialog,
       duration: const Duration(milliseconds: 250),
