@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart'
     show User;
 import 'package:wander_ways/presentation/components/components.dart';
+import 'package:wander_ways/presentation/sign_up/overlays/sign_up.overlays.dart';
 
 class SignUpController extends GetxController with WidgetsBindingObserver {
   final args = Get.arguments;
@@ -187,11 +188,16 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
   }
 
   void _onSuccessSignUp() {
-    Future.delayed(const Duration(milliseconds: 1500), () async {
-      Get.back();
-      await goToSignInScreen();
-    });
-    // todo: show success dialog
+    Get.off(
+      () => SignUpOverlaySuccess(
+        languageSelected: args,
+        onSignInTap: () async {
+          await Get.offNamed("/sign_in", arguments: args);
+        },
+      ),
+      transition: Transition.cupertinoDialog,
+      duration: const Duration(milliseconds: 250),
+    );
   }
 
   Future<void> goToSignInScreen() async {

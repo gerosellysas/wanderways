@@ -9,6 +9,7 @@ class Images {
   static String logoTag = _imagePath("logo_tag");
   static String logoTextBottom = _imagePath("logo_text_bottom");
   static String logoTextTop = _imagePath("logo_text_top");
+  static String success = _imagePath("success");
 
   static String about = _iconPath("about");
   static String arrow = _iconPath("arrow");
