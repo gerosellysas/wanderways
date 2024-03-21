@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../../domain/storage.domain.dart';
 import '../services/shared_pref.service.dart';
 
@@ -18,7 +20,12 @@ class SharedPrefLanguageRepo implements IStorage {
   @override
   Future<int?> read({Map<String, dynamic>? params}) async {
     await _service.reload();
-    return await _service.readInt(_key, 0);
+    switch (Get.deviceLocale.toString().split("_")[0]) {
+      case "en":
+        return await _service.readInt(_key, 1);
+      default:
+        return await _service.readInt(_key, 0);
+    }
   }
 
   @override
