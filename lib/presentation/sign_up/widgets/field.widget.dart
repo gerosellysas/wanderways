@@ -49,8 +49,8 @@ class SignUpFirstNameField extends StatelessWidget {
               ? "Nama depan tidak boleh kosong"
               : "First name can't be empty"
           : languageSelected == 0
-              ? "Nama depan tidak valid"
-              : "First name is invalid",
+              ? "Nama hanya boleh berisi alfabet dan spasi antar kata"
+              : "Name can only contain alphabet and space between word",
       onChange: onChange,
       onSubmit: onSubmit,
       onTap: onTap,
@@ -105,8 +105,8 @@ class SignUpLastNameField extends StatelessWidget {
               ? "Nama belakang tidak boleh kosong"
               : "Last name can't be empty"
           : languageSelected == 0
-              ? "Nama belakang tidak valid"
-              : "Last name is invalid",
+              ? "Nama hanya boleh berisi alfabet dan spasi antar kata"
+              : "Name can only contain alphabet and space between word",
       onChange: onChange,
       onSubmit: onSubmit,
       onTap: onTap,
@@ -269,7 +269,7 @@ class SignUpPasswordField extends StatelessWidget {
       isError: isError!,
       isEmpty: isEmpty!,
       obscure: obscure,
-      inputAction: TextInputAction.done,
+      inputAction: TextInputAction.next,
       keyboardType: TextInputType.visiblePassword,
       labelText: languageSelected == 0 ? "Kata sandi" : "Password",
       errorText: isEmpty!
