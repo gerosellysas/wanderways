@@ -20,9 +20,9 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onReady() async {
-    logoAnimation.forward();
     _language = await _checkPrefLanguage();
-    await _checkLoggedUser();
+    await logoAnimation.forward();
+    _checkLoggedUser();
     super.onReady();
   }
 
