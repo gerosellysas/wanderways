@@ -1,14 +1,17 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wander_ways/features/storage/domain/storage.domain.dart'
+    show User;
 import 'package:wander_ways/presentation/components/components.dart';
 
 class SignUpController extends GetxController with WidgetsBindingObserver {
   final args = Get.arguments;
   final AppService app = Get.find<AppService>();
+  final StorageService _storage = Get.find<StorageService>();
 
-  List<TextEditingController> fieldControllers = [];
-  List<FocusNode> fieldFocuses = [];
+  var fieldControllers = <TextEditingController>[];
+  var fieldFocuses = <FocusNode>[];
 
   var fieldActives = <RxBool>[];
   var fieldEmpties = <RxBool>[];
@@ -65,10 +68,6 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
     super.didChangeMetrics();
   }
 
-  Future<void> fetchUser() async {
-    // todo: load user db
-  }
-
   void onFieldChanged(String str, int index) {
     fieldEmpties[index].value = str.isEmpty;
     fieldErrors[index].value = false;
@@ -95,15 +94,23 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<bool> _validateEmail() async {
-    // todo : check email exisiting from db
-    return EmailValidator.validate(fieldControllers[2].text);
+    var validFormat = EmailValidator.validate(fieldControllers[2].text);
+    if (!validFormat) return validFormat;
+    var exist = _storage.listUser.indexWhere(
+      (u) => u.email == fieldControllers[2].text,
+    );
+    return !(dataExist[0].value = exist != -1);
   }
 
   Future<bool> _validatePhoneNumber() async {
-    // todo : check phone exisiting from db
-    return RegExp(r'^(?:[+0])?[0-9]{10,22}$').hasMatch(
+    var validFormat = RegExp(r'^(?:[+0])?[0-9]{10,22}$').hasMatch(
       fieldControllers[3].text,
     );
+    if (!validFormat) return validFormat;
+    var exist = _storage.listUser.indexWhere(
+      (u) => u.phone == fieldControllers[3].text,
+    );
+    return !(dataExist[1].value = exist != -1);
   }
 
   Future<bool> _validatePassword() async {
@@ -158,7 +165,7 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
       var phoneValid = await _validatePhoneNumber();
       var passValid = await _validatePassword();
       var confirmPassValid = await _validateConfirmPass();
-      Future.delayed(const Duration(seconds: 2), () async {
+      Future.delayed(const Duration(seconds: 2), () {
         loading.value = false;
         fieldErrors[0].value = !firstNameValid;
         fieldErrors[1].value = !lastNameValid;
@@ -167,9 +174,24 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
         fieldErrors[4].value = !passValid;
         fieldErrors[5].value = !confirmPassValid;
         if (fieldErrors.contains(true.obs)) return;
-        // todo : insert user db
+        var user = User(
+          firstName: fieldControllers[0].text,
+          lastName: fieldControllers[1].text,
+          email: fieldControllers[2].text,
+          phone: fieldControllers[3].text,
+          password: fieldControllers[4].text,
+        );
+        _storage.upsertUser(user).then((_) => _onSuccessSignUp());
       });
     });
+  }
+
+  void _onSuccessSignUp() {
+    Future.delayed(const Duration(milliseconds: 1500), () async {
+      Get.back();
+      await goToSignInScreen();
+    });
+    // todo: show success dialog
   }
 
   Future<void> goToSignInScreen() async {
