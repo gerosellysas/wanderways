@@ -49,7 +49,6 @@ class DBUserRepo implements IStorage {
     return await _service.insert(
       _table,
       values: UserDTO(
-        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
