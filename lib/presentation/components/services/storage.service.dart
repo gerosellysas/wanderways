@@ -83,7 +83,7 @@ class StorageService extends GetxService {
   }
 
   Future<void> savePrefLanguage(int selectedLanguage) async {
-    await _create(_secureAuthRepo).invoke(
+    await _create(_prefLanguageRepo).invoke(
       params: {
         "language": selectedLanguage,
       },
@@ -95,6 +95,6 @@ class StorageService extends GetxService {
   }
 
   Future<void> removePrefLanguage() async {
-    await _delete(_secureAuthRepo).invoke();
+    await _delete(_prefLanguageRepo).invoke();
   }
 }

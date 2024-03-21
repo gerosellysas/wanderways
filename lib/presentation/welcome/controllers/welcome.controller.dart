@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wander_ways/presentation/components/components.dart';
 
 class WelcomeController extends GetxController
     with GetTickerProviderStateMixin {
+  final args = Get.arguments;
+  final StorageService _storage = Get.find<StorageService>();
   late AnimationController languageMenuAnimation;
 
   var language = 0.obs;
 
   @override
   void onInit() {
+    language.value = args;
     languageMenuAnimation = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 50),
@@ -40,7 +44,8 @@ class WelcomeController extends GetxController
   Future<void> onLanguageMenuTapped(int index) async {
     if (language.value == index) return;
     languageMenuAnimation.reverse();
-    language.value = index;
+    await _storage.savePrefLanguage(index);
+    language.value = await _storage.loadPrefLanguage();
   }
 
   Future<void> goToSignScreen(int index) async {
