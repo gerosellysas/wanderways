@@ -4,6 +4,7 @@ import 'package:wander_ways/features/storage/domain/storage.domain.dart';
 
 class StorageService extends GetxService {
   final DBUserRepo _dbUserRepo = DBUserRepo();
+  final SecureStorageAuthRepo _secureAuthRepo = SecureStorageAuthRepo();
 
   StorageFetchAllUseCase _fetchAll(IStorage repo) => StorageFetchAllUseCase(
         repo: repo,
@@ -40,26 +41,43 @@ class StorageService extends GetxService {
     ) as User?;
   }
 
-  Future<int> upsertUser(User user) async {
+  Future<void> upsertUser(User user) async {
     if (user.id != null) {
-      return await _create(_dbUserRepo).invoke(
+      await _create(_dbUserRepo).invoke(
         params: {
           "user": user,
         },
-      ) as int;
+      );
+      return;
     }
-    return await _update(_dbUserRepo).invoke(
+    await _update(_dbUserRepo).invoke(
       params: {
         "user": user,
       },
-    ) as int;
+    );
   }
 
-  Future<int> deleteUser(int uid) async {
-    return await _delete(_dbUserRepo).invoke(
+  Future<void> deleteUser(int uid) async {
+    await _delete(_dbUserRepo).invoke(
       params: {
         "user": uid,
       },
-    ) as int;
+    );
+  }
+
+  Future<String> loadLoggedUser() async {
+    return await _create(_secureAuthRepo).invoke() as String;
+  }
+
+  Future<void> saveLoggedUser(String email) async {
+    await _create(_secureAuthRepo).invoke(
+      params: {
+        "user_credential": email,
+      },
+    );
+  }
+
+  Future<void> removeLoggedUser() async {
+    await _delete(_secureAuthRepo).invoke();
   }
 }
