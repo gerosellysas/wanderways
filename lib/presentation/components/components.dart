@@ -1,4 +1,5 @@
 export 'services/app.service.dart';
+export 'services/storage.service.dart';
 
 export 'widgets/field.widget.dart';
 export 'widgets/icon_press_button.widget.dart';

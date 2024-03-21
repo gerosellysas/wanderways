@@ -10,6 +10,7 @@ import 'infrastructure/theme/theme.dart';
 
 void main() async {
   Get.lazyPut<AppService>(() => AppService(), fenix: true);
+  Get.lazyPut<StorageService>(() => StorageService(), fenix: true);
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
 }
