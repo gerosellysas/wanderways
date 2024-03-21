@@ -122,8 +122,9 @@ class SignInController extends GetxController with WidgetsBindingObserver {
         fieldErrors[0].value = !emailValid;
         fieldErrors[1].value = !passwordValid;
         if (fieldErrors.contains(true.obs)) return loading.value = false;
+        var uid = _storage.listUser[_uid].id!;
         _storage
-            .fetchSingleUser(_uid)
+            .fetchSingleUser(uid)
             .then((u) => _storage.user.value = u!)
             .then((u) => _storage.saveLoggedUser(u.email!))
             .then((_) => _onSuccessSignIn());

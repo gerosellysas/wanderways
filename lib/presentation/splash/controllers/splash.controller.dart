@@ -37,6 +37,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> _checkLoggedUser() async {
+    _storage.listUser.assignAll(await _storage.fetchAllUser());
     var loggedUser = await _storage.loadLoggedUser();
     if (loggedUser == "") {
       return await Get.offAllNamed(
@@ -44,7 +45,6 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
         arguments: _language,
       );
     }
-    _storage.listUser.assignAll(await _storage.fetchAllUser());
     var index = _storage.listUser.indexWhere((u) => u.email == loggedUser);
     _storage.user.value = _storage.listUser[index];
     return await Get.offAllNamed(
