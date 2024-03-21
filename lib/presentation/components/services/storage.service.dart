@@ -5,6 +5,7 @@ import 'package:wander_ways/features/storage/domain/storage.domain.dart';
 class StorageService extends GetxService {
   final DBUserRepo _dbUserRepo = DBUserRepo();
   final SecureStorageAuthRepo _secureAuthRepo = SecureStorageAuthRepo();
+  final SharedPrefLanguageRepo _prefLanguageRepo = SharedPrefLanguageRepo();
 
   StorageFetchAllUseCase _fetchAll(IStorage repo) => StorageFetchAllUseCase(
         repo: repo,
@@ -65,10 +66,6 @@ class StorageService extends GetxService {
     );
   }
 
-  Future<String> loadLoggedUser() async {
-    return await _create(_secureAuthRepo).invoke() as String;
-  }
-
   Future<void> saveLoggedUser(String email) async {
     await _create(_secureAuthRepo).invoke(
       params: {
@@ -77,7 +74,27 @@ class StorageService extends GetxService {
     );
   }
 
+  Future<String> loadLoggedUser() async {
+    return await _read(_secureAuthRepo).invoke() as String;
+  }
+
   Future<void> removeLoggedUser() async {
+    await _delete(_secureAuthRepo).invoke();
+  }
+
+  Future<void> savePrefLanguage(int selectedLanguage) async {
+    await _create(_secureAuthRepo).invoke(
+      params: {
+        "language": selectedLanguage,
+      },
+    );
+  }
+
+  Future<String> loadPrefLanguage() async {
+    return await _read(_prefLanguageRepo).invoke() as String;
+  }
+
+  Future<void> removePrefLanguage() async {
     await _delete(_secureAuthRepo).invoke();
   }
 }
