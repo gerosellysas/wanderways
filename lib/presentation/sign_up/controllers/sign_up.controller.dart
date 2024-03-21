@@ -121,10 +121,12 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
       passInvalid[1].value = false;
       return false;
     }
-    if (!(RegExp(
-      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)$',
-      caseSensitive: true,
-    ).hasMatch(fieldControllers[4].text))) {
+    bool hasUppercase = fieldControllers[4].text.contains(RegExp(r'^[A-Z]'));
+    bool hasLowercase = fieldControllers[4].text.contains(RegExp(r'^[a-z]'));
+    bool hasDigits = fieldControllers[4].text.contains(RegExp(r'^[0-9]'));
+    bool hasSpecialCharacters =
+        fieldControllers[4].text.contains(RegExp(r'^[!@#$%^&*(),.?":{}|<>]'));
+    if (hasUppercase & hasLowercase & hasDigits & hasSpecialCharacters) {
       passInvalid[0].value = false;
       passInvalid[1].value = true;
       return false;

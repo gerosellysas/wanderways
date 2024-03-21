@@ -43,7 +43,7 @@ class StorageService extends GetxService {
   }
 
   Future<void> upsertUser(User user) async {
-    if (user.id != null) {
+    if (user.id == null) {
       await _create(_dbUserRepo).invoke(
         params: {
           "user": user,

@@ -24,7 +24,7 @@ class DBService {
   static const String _colUser5 = "phone";
   static const String _colUser6 = "password";
   static const String _colUser7 = "created_at";
-  static const String _colUser8 = "update_at";
+  static const String _colUser8 = "updated_at";
 
   static const String _colPurchase1 = "id";
   static const String _colPurchase2 = "uid";
@@ -62,8 +62,8 @@ class DBService {
         $_colUser4 TEXT NOT NULL,
         $_colUser5 TEXT NOT NULL,
         $_colUser6 TEXT NOT NULL,
-        $_colUser7 TEXT NOT NULL,
-        $_colUser8 TEXT,
+        $_colUser7 TEXT,
+        $_colUser8 TEXT
       )
     ''');
     await db.execute('''
@@ -76,8 +76,8 @@ class DBService {
         $_colPurchase6 INTEGER NOT NULL,
         $_colPurchase7 TEXT NOT NULL,
         $_colPurchase8 TEXT NOT NULL,
-        $_colPurchase9 TEXT NOT NULL,
-        $_colPurchase10 TEXT,
+        $_colPurchase9 TEXT,
+        $_colPurchase10 TEXT
       )
     ''');
   }
