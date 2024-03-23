@@ -151,7 +151,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   void _onDatePickerRangeDepartureTapped() {
     if (_pickerTapped == 2) return _onDatePickerRangeReturnTapped();
-    selectedDates[0].value = pickerDates[0].value!.pickerStringFormat(locale);
   }
 
   void _onDatePickerRangeReturnTapped() {
