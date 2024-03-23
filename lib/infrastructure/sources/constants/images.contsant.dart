@@ -23,6 +23,7 @@ class Images {
   static String passenger = _iconPath("passenger");
   static String seat = _iconPath("seat");
   static String security = _iconPath("security");
+  static String swap = _iconPath("swap");
   static String tabBookingActive = _iconPath("tab_booking_active");
   static String tabBookingInactive = _iconPath("tab_booking_inactive");
   static String tabHomeActive = _iconPath("tab_home_active");

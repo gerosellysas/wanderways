@@ -27,11 +27,6 @@ class EnvironmentsBadge extends StatelessWidget {
 class Nav {
   static List<GetPage> routes = [
     GetPage(
-      name: Routes.home,
-      page: () => const HomeScreen(),
-      binding: HomeControllerBinding(),
-    ),
-    GetPage(
       name: Routes.splash,
       page: () => const SplashScreen(),
       binding: SplashControllerBinding(),
@@ -56,6 +51,13 @@ class Nav {
       binding: SignUpControllerBinding(),
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.home,
+      page: () => const HomeScreen(),
+      binding: HomeControllerBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 450),
     ),
   ];
 }
