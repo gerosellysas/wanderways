@@ -69,7 +69,6 @@ class WelcomeLanguage extends StatelessWidget {
                       height: 24.w,
                       width: 24.w,
                     ),
-                    // SizedBox(width: 8.w),
                     const Expanded(child: SizedBox()),
                     Text(
                       selectedLanguage == 0 ? "Bahasa Indonesia" : "English",

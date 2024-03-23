@@ -19,6 +19,8 @@ class WelcomeScreen extends GetView<WelcomeController> {
         return Obx(
           () => WelcomeView(
             selectedLanguage: c.storage.language.value,
+            languageMenuAnimation: c.languageMenuAnimation,
+            onBarrierTap: () => c.languageMenuAnimation.reverse(),
             languageButton: WelcomeLanguage(
               animation: c.languageMenuAnimation,
               selectedLanguage: c.storage.language.value,

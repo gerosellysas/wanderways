@@ -44,6 +44,7 @@ class WelcomeController extends GetxController
   }
 
   Future<void> goToSignScreen(int index) async {
+    languageMenuAnimation.reverse();
     await Get.toNamed(index == 0 ? "/sign_in" : "/sign_up");
   }
 }
