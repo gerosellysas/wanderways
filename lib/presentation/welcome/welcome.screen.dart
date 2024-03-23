@@ -16,25 +16,27 @@ class WelcomeScreen extends GetView<WelcomeController> {
     return GetBuilder(
       init: controller,
       builder: (c) {
-        return Obx(() => WelcomeView(
-              selectedLanguage: c.language.value,
-              languageButton: WelcomeLanguage(
-                animation: c.languageMenuAnimation,
-                selectedLanguage: c.language.value,
-                onTap: () => c.onLanguageButtonTapped(),
-                onMenuTap: (index) => c.onLanguageMenuTapped(index!),
-              ),
-              signInNav: WelcomeNavButton(
-                selectedLanguage: c.language.value,
-                style: NavButtonStyle.fill,
-                onTap: () => c.goToSignScreen(0),
-              ),
-              signUpNav: WelcomeNavButton(
-                selectedLanguage: c.language.value,
-                style: NavButtonStyle.outline,
-                onTap: () => c.goToSignScreen(1),
-              ),
-            ));
+        return Obx(
+          () => WelcomeView(
+            selectedLanguage: c.storage.language.value,
+            languageButton: WelcomeLanguage(
+              animation: c.languageMenuAnimation,
+              selectedLanguage: c.storage.language.value,
+              onTap: () => c.onLanguageButtonTapped(),
+              onMenuTap: (index) => c.onLanguageMenuTapped(index!),
+            ),
+            signInNav: WelcomeNavButton(
+              selectedLanguage: c.storage.language.value,
+              style: NavButtonStyle.fill,
+              onTap: () => c.goToSignScreen(0),
+            ),
+            signUpNav: WelcomeNavButton(
+              selectedLanguage: c.storage.language.value,
+              style: NavButtonStyle.outline,
+              onTap: () => c.goToSignScreen(1),
+            ),
+          ),
+        );
       },
     );
   }

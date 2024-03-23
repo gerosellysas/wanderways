@@ -17,7 +17,7 @@ class HomeScreen extends GetView<HomeController> {
       builder: (c) {
         return Obx(
           () => HomeView(
-            languageSelected: c.args,
+            languageSelected: c.storage.language.value,
             returnFieldAnimation: c.returnFieldAnimation,
             roundTrip: c.roundTrip.value,
             locationEmpties: [
@@ -25,7 +25,7 @@ class HomeScreen extends GetView<HomeController> {
               c.locationEmpties[1].value,
             ],
             departureLocation: Obx(() => HomeDropDown(
-                  hint: c.args == 0
+                  hint: c.storage.language.value == 0
                       ? "Lokasi keberangkatan"
                       : "Departure location",
                   items: c.locations,
@@ -33,7 +33,8 @@ class HomeScreen extends GetView<HomeController> {
                   onChanged: (location) => c.onLocationChanged(location, 0),
                 )),
             arrivalLocation: Obx(() => HomeDropDown(
-                  hint: c.args == 0 ? "Tujuan" : "Destination",
+                  hint:
+                      c.storage.language.value == 0 ? "Tujuan" : "Destination",
                   items: c.locations,
                   selected: c.selectedLocations[1].value,
                   onChanged: (location) => c.onLocationChanged(location, 1),
@@ -45,7 +46,7 @@ class HomeScreen extends GetView<HomeController> {
                   hint: c.selectedDates[1].value,
                 )),
             seat: Obx(() => HomeDropDown(
-                  items: c.args == 0 ? c.seatsID : c.seatsEN,
+                  items: c.storage.language.value == 0 ? c.seatsID : c.seatsEN,
                   selected: c.selectedSeat.value,
                   onChanged: c.onSeatChanged,
                 )),
@@ -55,7 +56,7 @@ class HomeScreen extends GetView<HomeController> {
               onTap: c.onLocationSwapped,
             ),
             switchButton: Obx(() => HomeSwitchButton(
-                  languageSelected: c.args,
+                  languageSelected: c.storage.language.value,
                   locationEmpties: [
                     c.locationEmpties[0].value,
                     c.locationEmpties[1].value,

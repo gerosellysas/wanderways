@@ -4,11 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wander_ways/infrastructure/sources/constants/constants.dart';
 import 'package:wander_ways/infrastructure/theme/theme.dart';
 
-class SignUpOverlaySuccess extends StatelessWidget {
+class SignUpSuccess extends StatelessWidget {
   final int? languageSelected;
   final void Function()? onSignInTap;
 
-  const SignUpOverlaySuccess({
+  const SignUpSuccess({
     super.key,
     this.languageSelected,
     this.onSignInTap,

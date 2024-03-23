@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:wander_ways/infrastructure/sources/extensions/extensions.dart';
+import 'package:wander_ways/presentation/components/components.dart';
 
 import '../overlays/home.overlays.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
-  final args = Get.arguments;
+  final StorageService storage = Get.find<StorageService>();
 
   final now = DateTime.now();
   final locations = ["Semarang", "Solo", "Yogyakarta"];
@@ -15,8 +16,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   late AnimationController returnFieldAnimation;
 
-  String get locale => "en_US";
-  // Get.locale!.languageCode;
+  String get locale => Get.locale!.languageCode;
 
   var selectedLocations = <Rxn<String?>>[];
   var locationEmpties = <RxBool>[];
@@ -29,7 +29,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onInit() {
-    selectedSeat.value = args == 0 ? "1 kursi" : "1 seat";
+    selectedSeat.value = storage.language.value == 0 ? "1 kursi" : "1 seat";
     for (var i = 0; i < 2; i++) {
       selectedLocations.add(Rxn(null));
       locationEmpties.add(false.obs);
@@ -104,7 +104,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
     await Get.to(
       () => Obx(() => HomeDatePicker(
-            languageSelected: args,
+            languageSelected: storage.language.value,
             roundTrip: roundTrip.value,
             locale: locale,
             departureDate: pickerDates[0].value,
@@ -119,6 +119,8 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
             },
           )),
       routeName: "/home_date_picker",
+      transition: Transition.cupertinoDialog,
+      duration: const Duration(milliseconds: 250),
     );
   }
 

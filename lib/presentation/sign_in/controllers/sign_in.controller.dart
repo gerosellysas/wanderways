@@ -5,9 +5,8 @@ import 'package:get/get.dart';
 import 'package:wander_ways/presentation/components/components.dart';
 
 class SignInController extends GetxController with WidgetsBindingObserver {
-  final args = Get.arguments;
   final AppService app = Get.find<AppService>();
-  final StorageService _storage = Get.find<StorageService>();
+  final StorageService storage = Get.find<StorageService>();
 
   var fieldControllers = <TextEditingController>[];
   var fieldFocuses = <FocusNode>[];
@@ -82,7 +81,7 @@ class SignInController extends GetxController with WidgetsBindingObserver {
   Future<bool> _validateEmail() async {
     var validFormat = EmailValidator.validate(fieldControllers[0].text);
     if (!validFormat) return validFormat;
-    _uid = _storage.listUser.indexWhere(
+    _uid = storage.listUser.indexWhere(
       (u) => u.email == fieldControllers[0].text,
     );
     return _uid != -1;
@@ -90,7 +89,7 @@ class SignInController extends GetxController with WidgetsBindingObserver {
 
   Future<bool> _validatePassword() async {
     if (_uid == -1) return false;
-    return fieldControllers[1].text == _storage.listUser[_uid].password;
+    return fieldControllers[1].text == storage.listUser[_uid].password;
   }
 
   void onObscureTapped() {
@@ -122,11 +121,11 @@ class SignInController extends GetxController with WidgetsBindingObserver {
         fieldErrors[0].value = !emailValid;
         fieldErrors[1].value = !passwordValid;
         if (fieldErrors.contains(true.obs)) return loading.value = false;
-        var uid = _storage.listUser[_uid].id!;
-        _storage
+        var uid = storage.listUser[_uid].id!;
+        storage
             .fetchSingleUser(uid)
-            .then((u) => _storage.user.value = u!)
-            .then((u) => _storage.saveLoggedUser(u.email!))
+            .then((u) => storage.user.value = u!)
+            .then((u) => storage.saveLoggedUser(u.email!))
             .then((_) => _onSuccessSignIn());
       });
     });
@@ -134,10 +133,10 @@ class SignInController extends GetxController with WidgetsBindingObserver {
 
   Future<void> _onSuccessSignIn() async {
     loading.value = false;
-    await Get.offAllNamed("/home", arguments: args);
+    await Get.offAllNamed("/home");
   }
 
   Future<void> goToSignUpScreen() async {
-    await Get.offNamed("/sign_up", arguments: args);
+    await Get.offNamed("/sign_up");
   }
 }

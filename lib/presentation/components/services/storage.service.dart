@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:wander_ways/features/storage/data/storages.data.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart';
@@ -33,6 +35,8 @@ class StorageService extends GetxService {
 
   var listUser = <User>[].obs;
   var user = const User().obs;
+
+  var language = 0.obs;
 
   Future<User?> fetchSingleUser(int uid) async {
     return await _read(_dbUserRepo).invoke(
@@ -90,11 +94,21 @@ class StorageService extends GetxService {
     );
   }
 
-  Future<int> loadPrefLanguage() async {
+  Future<int> _loadPrefLanguage() async {
     return await _read(_prefLanguageRepo).invoke() as int;
   }
 
   Future<void> removePrefLanguage() async {
     await _delete(_prefLanguageRepo).invoke();
+  }
+
+  Future<Locale> setLocale() async {
+    language.value = await _loadPrefLanguage();
+    if (language.value == 0) {
+      await Get.updateLocale(const Locale("id"));
+    } else {
+      await Get.updateLocale(const Locale("en"));
+    }
+    return Get.locale!;
   }
 }

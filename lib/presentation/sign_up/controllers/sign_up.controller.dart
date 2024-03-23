@@ -8,9 +8,8 @@ import 'package:wander_ways/presentation/components/components.dart';
 import '../overlays/sign_up.overlays.dart';
 
 class SignUpController extends GetxController with WidgetsBindingObserver {
-  final args = Get.arguments;
   final AppService app = Get.find<AppService>();
-  final StorageService _storage = Get.find<StorageService>();
+  final StorageService storage = Get.find<StorageService>();
 
   var fieldControllers = <TextEditingController>[];
   var fieldFocuses = <FocusNode>[];
@@ -98,7 +97,7 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
   Future<bool> _validateEmail() async {
     var validFormat = EmailValidator.validate(fieldControllers[2].text);
     if (!validFormat) return validFormat;
-    var exist = _storage.listUser.indexWhere(
+    var exist = storage.listUser.indexWhere(
       (u) => u.email == fieldControllers[2].text,
     );
     return !(dataExist[0].value = exist != -1);
@@ -109,7 +108,7 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
       fieldControllers[3].text,
     );
     if (!validFormat) return validFormat;
-    var exist = _storage.listUser.indexWhere(
+    var exist = storage.listUser.indexWhere(
       (u) => u.phone == fieldControllers[3].text,
     );
     return !(dataExist[1].value = exist != -1);
@@ -184,10 +183,10 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
           phone: fieldControllers[3].text,
           password: fieldControllers[4].text,
         );
-        _storage
+        storage
             .upsertUser(user)
-            .then((_) => _storage.fetchAllUser())
-            .then((users) => _storage.listUser.assignAll(users))
+            .then((_) => storage.fetchAllUser())
+            .then((users) => storage.listUser.assignAll(users))
             .then((_) => _onSuccessSignUp());
       });
     });
@@ -196,16 +195,17 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
   Future<void> _onSuccessSignUp() async {
     loading.value = false;
     await Get.off(
-      () => SignUpOverlaySuccess(
-        languageSelected: args,
-        onSignInTap: goToSignInScreen,
-      ),
+      () => Obx(() => SignUpSuccess(
+            languageSelected: storage.language.value,
+            onSignInTap: goToSignInScreen,
+          )),
+      routeName: "/sign_up_success",
       transition: Transition.cupertinoDialog,
       duration: const Duration(milliseconds: 250),
     );
   }
 
   Future<void> goToSignInScreen() async {
-    await Get.offNamed("/sign_in", arguments: args);
+    await Get.offNamed("/sign_in");
   }
 }

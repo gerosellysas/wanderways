@@ -6,8 +6,6 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   final StorageService _storage = Get.find<StorageService>();
   late AnimationController logoAnimation;
 
-  var _language = 0;
-
   @override
   void onInit() {
     logoAnimation = AnimationController(
@@ -20,7 +18,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onReady() async {
-    _language = await _checkPrefLanguage();
+    await _setLocale();
     await logoAnimation.forward();
     _checkLoggedUser();
     super.onReady();
@@ -32,24 +30,16 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
     super.onClose();
   }
 
-  Future<int> _checkPrefLanguage() async {
-    return await _storage.loadPrefLanguage();
+  Future<Locale> _setLocale() async {
+    return await _storage.setLocale();
   }
 
   Future<void> _checkLoggedUser() async {
     _storage.listUser.assignAll(await _storage.fetchAllUser());
     var loggedUser = await _storage.loadLoggedUser();
-    if (loggedUser == "") {
-      return await Get.offAllNamed(
-        "/welcome",
-        arguments: _language,
-      );
-    }
+    if (loggedUser == "") return await Get.offAllNamed("/welcome");
     var index = _storage.listUser.indexWhere((u) => u.email == loggedUser);
     _storage.user.value = _storage.listUser[index];
-    return await Get.offAllNamed(
-      "/home",
-      arguments: _language,
-    );
+    return await Get.offAllNamed("/home");
   }
 }
