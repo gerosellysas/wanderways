@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart'
     show User;
+import 'package:wander_ways/infrastructure/sources/extensions/extensions.dart';
 import 'package:wander_ways/presentation/components/components.dart';
 
 import '../overlays/sign_up.overlays.dart';
@@ -177,8 +178,8 @@ class SignUpController extends GetxController with WidgetsBindingObserver {
         fieldErrors[5].value = !confirmPassValid;
         if (fieldErrors.contains(true.obs)) return loading.value = false;
         var user = User(
-          firstName: fieldControllers[0].text,
-          lastName: fieldControllers[1].text,
+          firstName: fieldControllers[0].text.nameFormatter,
+          lastName: fieldControllers[1].text.nameFormatter,
           email: fieldControllers[2].text,
           phone: fieldControllers[3].text,
           password: fieldControllers[4].text,
