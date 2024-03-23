@@ -133,7 +133,13 @@ class SignInController extends GetxController with WidgetsBindingObserver {
 
   Future<void> _onSuccessSignIn() async {
     loading.value = false;
-    await Get.offAllNamed("/home");
+    await Get.offAllNamed(
+      "/dashboard",
+      arguments: {
+        "language": storage.language.value,
+        "index": 0.obs,
+      },
+    );
   }
 
   Future<void> goToSignUpScreen() async {

@@ -40,6 +40,12 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
     if (loggedUser == "") return await Get.offAllNamed("/welcome");
     var index = _storage.listUser.indexWhere((u) => u.email == loggedUser);
     _storage.user.value = _storage.listUser[index];
-    return await Get.offAllNamed("/home");
+    return await Get.offAllNamed(
+      "/dashboard",
+      arguments: {
+        "language": _storage.language.value,
+        "index": 0.obs,
+      },
+    );
   }
 }

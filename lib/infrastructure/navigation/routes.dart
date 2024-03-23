@@ -3,6 +3,7 @@ class Routes {
     return splash;
   }
 
+  static const dasboard = '/dashboard';
   static const home = '/home';
   static const signIn = '/sign_in';
   static const splash = '/';

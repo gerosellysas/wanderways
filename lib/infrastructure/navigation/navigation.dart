@@ -53,6 +53,13 @@ class Nav {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
+      name: Routes.dasboard,
+      page: () => DashboardScreen(),
+      binding: HomeControllerBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 450),
+    ),
+    GetPage(
       name: Routes.home,
       page: () => const HomeScreen(),
       binding: HomeControllerBinding(),
