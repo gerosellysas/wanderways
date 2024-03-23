@@ -3,15 +3,17 @@ import 'package:wander_ways/presentation/components/components.dart';
 
 class HomeDropDown extends StatelessWidget {
   final String? hint;
-  final List<String>? items;
   final String? selected;
+  final List<String>? items;
+  final Offset? itemsOffset;
   final void Function(String?)? onChanged;
 
   const HomeDropDown({
     super.key,
     this.hint,
-    this.items,
     this.selected,
+    this.items,
+    this.itemsOffset,
     this.onChanged,
   });
 
@@ -20,6 +22,7 @@ class HomeDropDown extends StatelessWidget {
     return DropDown(
       hint: hint,
       items: items,
+      itemsOffset: itemsOffset,
       selected: selected,
       onChanged: onChanged,
     );

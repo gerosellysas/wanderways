@@ -5,15 +5,17 @@ import 'package:wander_ways/infrastructure/theme/theme.dart';
 
 class DropDown extends StatelessWidget {
   final String? hint;
-  final List<String>? items;
   final String? selected;
+  final List<String>? items;
+  final Offset? itemsOffset;
   final void Function(String?)? onChanged;
 
   const DropDown({
     super.key,
     this.hint,
-    this.items,
     this.selected,
+    this.items,
+    this.itemsOffset,
     this.onChanged,
   });
 
@@ -65,24 +67,22 @@ class DropDown extends StatelessWidget {
         hint: hint != null
             ? Text(
                 hint!,
-                style: Fonts.italic(
-                  color: Hues.greyDarkest,
-                ),
+                style: Fonts.italic(color: Hues.greyDarkest),
               )
             : null,
         items: _addDividersAfterItems(items!),
         value: selected,
         onChanged: onChanged,
         buttonStyleData: ButtonStyleData(
-          height: 52.w,
+          height: 46.h,
           width: 1.sw - 96.w,
-          padding: EdgeInsets.only(left: 52.w),
+          padding: EdgeInsets.only(left: hint != null ? 52.w : 44.w),
         ),
         dropdownStyleData: DropdownStyleData(
           elevation: 2,
           maxHeight: 200.h,
           width: 1.sw - 72.w,
-          offset: Offset(-12.w, 0),
+          offset: itemsOffset ?? Offset(-12.w, 0),
           decoration: BoxDecoration(
             color: Hues.white,
             borderRadius: BorderRadius.circular(8.w),

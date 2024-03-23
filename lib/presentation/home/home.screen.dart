@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -48,6 +49,10 @@ class HomeScreen extends GetView<HomeController> {
             seat: Obx(() => HomeDropDown(
                   items: c.storage.language.value == 0 ? c.seatsID : c.seatsEN,
                   selected: c.selectedSeat.value,
+                  itemsOffset: c.roundTrip.value &&
+                          (c.locationEmpties.any((e) => e.value == true))
+                      ? Offset(-12.w, 175.5.h)
+                      : null,
                   onChanged: c.onSeatChanged,
                 )),
             onDepartureDateTap: () => c.openDatePicker(0),
