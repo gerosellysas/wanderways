@@ -8,21 +8,17 @@ part of 'trip.dto.dart';
 
 TripDTO _$TripDTOFromJson(Map<String, dynamic> json) => TripDTO(
       id: json['id'] as String?,
-      origin: json['origin'] as String?,
-      destination: json['destination'] as String?,
-      departure: json['departure'] as String?,
-      arrival: json['arrival'] as String?,
+      route: json['route'] as Map<String, dynamic>?,
+      schedule: json['schedule'] as Map<String, dynamic>?,
       seats:
           (json['seats'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      price: json['price'] as String?,
+      price: json['price'] as int?,
     );
 
 Map<String, dynamic> _$TripDTOToJson(TripDTO instance) => <String, dynamic>{
       'id': instance.id,
-      'origin': instance.origin,
-      'destination': instance.destination,
-      'departure': instance.departure,
-      'arrival': instance.arrival,
+      'route': instance.route,
+      'schedule': instance.schedule,
       'seats': instance.seats,
       'price': instance.price,
     };

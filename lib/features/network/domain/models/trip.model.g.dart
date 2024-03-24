@@ -14,7 +14,7 @@ _$TripImpl _$$TripImplFromJson(Map<String, dynamic> json) => _$TripImpl(
       arrival: json['arrival'] as String?,
       seats:
           (json['seats'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      price: json['price'] as String?,
+      price: json['price'] as int?,
     );
 
 Map<String, dynamic> _$$TripImplToJson(_$TripImpl instance) =>

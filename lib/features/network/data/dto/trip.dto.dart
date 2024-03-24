@@ -5,19 +5,15 @@ part 'trip.dto.g.dart';
 @JsonSerializable()
 class TripDTO {
   final String? id;
-  final String? origin;
-  final String? destination;
-  final String? departure;
-  final String? arrival;
+  final Map<String, dynamic>? route;
+  final Map<String, dynamic>? schedule;
   final List<String>? seats;
-  final String? price;
+  final int? price;
 
   TripDTO({
     this.id,
-    this.origin,
-    this.destination,
-    this.departure,
-    this.arrival,
+    this.route,
+    this.schedule,
     this.seats,
     this.price,
   });

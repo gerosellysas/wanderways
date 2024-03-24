@@ -15,6 +15,7 @@ void main() async {
   initializeDateFormatting("ID_id");
   Get.lazyPut<AppService>(() => AppService(), fenix: true);
   Get.lazyPut<StorageService>(() => StorageService(), fenix: true);
+  Get.lazyPut<NetworkService>(() => NetworkService(), fenix: true);
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
 }

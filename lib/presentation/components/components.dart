@@ -1,4 +1,5 @@
 export 'services/app.service.dart';
+export 'services/network.service.dart';
 export 'services/storage.service.dart';
 
 export 'widgets/dropdown.widget.dart';

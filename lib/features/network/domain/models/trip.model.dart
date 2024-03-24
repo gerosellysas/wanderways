@@ -13,7 +13,7 @@ class Trip with _$Trip {
     String? departure,
     String? arrival,
     List<String>? seats,
-    String? price,
+    int? price,
   }) = _Trip;
 
   factory Trip.fromJson(Map<String, dynamic> json) => _$TripFromJson(json);

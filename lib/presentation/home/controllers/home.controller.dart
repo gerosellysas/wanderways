@@ -8,6 +8,7 @@ import '../overlays/home.overlays.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   final StorageService storage = Get.find<StorageService>();
+  final NetworkService _network = Get.find<NetworkService>();
 
   final now = DateTime.now();
   final locations = ["Semarang", "Solo", "Yogyakarta"];
@@ -163,10 +164,13 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     selectedSeat.value = seat!;
   }
 
-  void onSearchTapped() async {
+  Future<void> onSearchTapped() async {
     if (selectedLocations[0].value == null) locationEmpties[0].value = true;
     if (selectedLocations[1].value == null) locationEmpties[1].value = true;
     if (locationEmpties.any((empty) => empty.value == true)) return;
+    var route = [selectedLocations[0].value!, selectedLocations[1].value!];
+    var trips = await _network.getAllSelectedTripData(route);
+    _network.listTrip.assignAll(trips);
     // todo: go to schedule screen
   }
 }

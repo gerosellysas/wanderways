@@ -26,7 +26,7 @@ mixin _$Trip {
   String? get departure => throw _privateConstructorUsedError;
   String? get arrival => throw _privateConstructorUsedError;
   List<String>? get seats => throw _privateConstructorUsedError;
-  String? get price => throw _privateConstructorUsedError;
+  int? get price => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $TripCopyWith<$Res> {
       String? departure,
       String? arrival,
       List<String>? seats,
-      String? price});
+      int? price});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class _$TripCopyWithImpl<$Res, $Val extends Trip>
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
@@ -116,7 +116,7 @@ abstract class _$$TripImplCopyWith<$Res> implements $TripCopyWith<$Res> {
       String? departure,
       String? arrival,
       List<String>? seats,
-      String? price});
+      int? price});
 }
 
 /// @nodoc
@@ -165,7 +165,7 @@ class __$$TripImplCopyWithImpl<$Res>
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -208,7 +208,7 @@ class _$TripImpl implements _Trip {
   }
 
   @override
-  final String? price;
+  final int? price;
 
   @override
   String toString() {
@@ -258,7 +258,7 @@ abstract class _Trip implements Trip {
       final String? departure,
       final String? arrival,
       final List<String>? seats,
-      final String? price}) = _$TripImpl;
+      final int? price}) = _$TripImpl;
 
   factory _Trip.fromJson(Map<String, dynamic> json) = _$TripImpl.fromJson;
 
@@ -275,7 +275,7 @@ abstract class _Trip implements Trip {
   @override
   List<String>? get seats;
   @override
-  String? get price;
+  int? get price;
   @override
   @JsonKey(ignore: true)
   _$$TripImplCopyWith<_$TripImpl> get copyWith =>

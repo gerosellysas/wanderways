@@ -25,12 +25,12 @@ class NetworkService extends GetxService {
     return await _getAllData(_restApiRepo).invoke() as List<Trip>;
   }
 
-  Future<List<Trip>> getAllSelectedTripData(Trip trip) async {
+  Future<List<Trip>> getAllSelectedTripData(List<String> routes) async {
     var res = await _getAllTripData();
     var tripList = <Trip>[];
 
     for (var r in res) {
-      if (r.origin == trip.origin && r.destination == r.destination) {
+      if (r.origin == routes[0] && r.destination == routes[1]) {
         tripList.add(r);
       }
     }

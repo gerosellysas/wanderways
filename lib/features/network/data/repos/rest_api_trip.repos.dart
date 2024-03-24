@@ -11,16 +11,16 @@ class RestApiRepo implements IRestApi {
 
   @override
   Future<List<Trip>> getAllData({Map<String, dynamic>? params}) async {
-    var res = await _service.getAllData() as List<Map<String, dynamic>>;
+    var res = await _service.getAllData();
     var tripDTOs = res.map((tDTO) => TripDTO.fromJson(tDTO)).toList();
     var trips = <Trip>[];
     for (var tripDTO in tripDTOs) {
       trips.add(Trip(
         id: int.parse(tripDTO.id!),
-        origin: tripDTO.origin,
-        destination: tripDTO.destination,
-        arrival: tripDTO.arrival,
-        departure: tripDTO.departure,
+        origin: tripDTO.route!["origin"],
+        destination: tripDTO.route!["destination"],
+        departure: tripDTO.schedule!["departure"],
+        arrival: tripDTO.schedule!["arrival"],
         seats: tripDTO.seats,
         price: tripDTO.price,
       ));
@@ -35,10 +35,10 @@ class RestApiRepo implements IRestApi {
     var tripDTO = TripDTO.fromJson(res);
     return Trip(
       id: int.parse(tripDTO.id!),
-      origin: tripDTO.origin,
-      destination: tripDTO.destination,
-      arrival: tripDTO.arrival,
-      departure: tripDTO.departure,
+      origin: tripDTO.route!["origin"],
+      destination: tripDTO.route!["destination"],
+      departure: tripDTO.schedule!["departure"],
+      arrival: tripDTO.schedule!["arrival"],
       seats: tripDTO.seats,
       price: tripDTO.price,
     );
