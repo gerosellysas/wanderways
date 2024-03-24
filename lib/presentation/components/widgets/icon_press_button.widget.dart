@@ -55,7 +55,7 @@ class IconPressButton extends StatelessWidget {
               colorFilter: color != null
                   ? ColorFilter.mode(
                       color!,
-                      BlendMode.dstIn,
+                      BlendMode.srcIn,
                     )
                   : null,
             ),

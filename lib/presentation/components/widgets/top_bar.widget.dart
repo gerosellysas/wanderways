@@ -20,43 +20,49 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Hues.greyLightest,
-      child: Column(
-        children: [
-          SizedBox(height: ScreenUtil().statusBarHeight),
-          Container(
-            height: kToolbarHeight,
-            width: 1.sw,
-            padding: EdgeInsets.only(
-              left: style == TopBarStyle.enableBack ? 0 : 16.w,
-              right: 16.w,
-            ),
-            alignment: Alignment.center,
-            child: style == TopBarStyle.enableBack
-                ? Row(
-                    children: [
-                      IconPressButton(
-                        icon: Images.arrow,
-                        onTap: onBackTap,
-                      ),
-                      SizedBox(width: 12.w),
-                      Text(
-                        title!,
-                        style: Fonts.bold(
-                          size: 16,
+    return Material(
+      color: Hues.primary,
+      elevation: 4,
+      child: SizedBox(
+        height: ScreenUtil().statusBarHeight + kToolbarHeight,
+        child: Column(
+          children: [
+            SizedBox(height: ScreenUtil().statusBarHeight),
+            Container(
+              height: kToolbarHeight,
+              width: 1.sw,
+              padding: EdgeInsets.only(
+                left: style == TopBarStyle.enableBack ? 0 : 16.w,
+                right: 16.w,
+              ),
+              alignment: Alignment.center,
+              child: style == TopBarStyle.enableBack
+                  ? Row(
+                      children: [
+                        IconPressButton(
+                          icon: Images.arrow,
+                          onTap: onBackTap,
+                          color: Hues.white,
                         ),
+                        Text(
+                          title!,
+                          style: Fonts.bold(
+                            color: Hues.white,
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      title!,
+                      style: Fonts.bold(
+                        color: Hues.white,
+                        size: 16,
                       ),
-                    ],
-                  )
-                : Text(
-                    title!,
-                    style: Fonts.bold(
-                      size: 16,
                     ),
-                  ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

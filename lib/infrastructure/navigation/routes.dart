@@ -5,8 +5,10 @@ class Routes {
 
   static const dasboard = '/dashboard';
   static const home = '/home';
+  static const scheduleOrigin = '/schedule_origin';
+  static const scheduleReturn = '/schedule_return';
   static const signIn = '/sign_in';
+  static const signUp = '/sign_up';
   static const splash = '/';
   static const welcome = '/welcome';
-  static const signUp = '/sign_up';
 }

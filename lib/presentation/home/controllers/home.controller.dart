@@ -7,8 +7,9 @@ import 'package:wander_ways/presentation/components/components.dart';
 import '../overlays/home.overlays.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
+  final AppService app = Get.find<AppService>();
   final StorageService storage = Get.find<StorageService>();
-  final NetworkService _network = Get.find<NetworkService>();
+  final NetworkService network = Get.find<NetworkService>();
 
   final now = DateTime.now();
   final locations = ["Semarang", "Solo", "Yogyakarta"];
@@ -25,6 +26,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   var pickerDates = <Rxn<DateTime>>[];
   var selectedSeat = "".obs;
   var roundTrip = false.obs;
+  var scheduleLoadings = [false.obs, false.obs];
 
   var _pickerTapped = 0;
 
@@ -168,9 +170,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     if (selectedLocations[0].value == null) locationEmpties[0].value = true;
     if (selectedLocations[1].value == null) locationEmpties[1].value = true;
     if (locationEmpties.any((empty) => empty.value == true)) return;
+    Get.toNamed("/schedule_origin");
+    scheduleLoadings[0].value = true;
     var route = [selectedLocations[0].value!, selectedLocations[1].value!];
-    var trips = await _network.getAllSelectedTripData(route);
-    _network.listTrip.assignAll(trips);
-    // todo: go to schedule screen
+    await network.getAllSelectedTripData(route).then((trips) {
+      network.listTrip.assignAll(trips);
+      scheduleLoadings[0].value = false;
+    });
   }
 }

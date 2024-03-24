@@ -12,7 +12,7 @@ import 'infrastructure/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeDateFormatting("ID_id");
+  initializeDateFormatting("id_ID");
   Get.lazyPut<AppService>(() => AppService(), fenix: true);
   Get.lazyPut<StorageService>(() => StorageService(), fenix: true);
   Get.lazyPut<NetworkService>(() => NetworkService(), fenix: true);

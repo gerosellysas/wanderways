@@ -66,5 +66,19 @@ class Nav {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 450),
     ),
+    GetPage(
+      name: Routes.scheduleOrigin,
+      page: () => const ScheduleOriginScreen(),
+      binding: ScheduleControllerBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.scheduleReturn,
+      page: () => const ScheduleReturnScreen(),
+      binding: ScheduleControllerBinding(),
+     transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }
