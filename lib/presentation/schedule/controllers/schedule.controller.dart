@@ -134,11 +134,11 @@ class ScheduleController extends GetxController {
       });
       return;
     }
-    await Get.toNamed("/payment");
+    await Get.toNamed("/seat_origin");
   }
 
   Future<void> onReturnScheduleTap(int index) async {
     tripIDs[1].value = index;
-    await Get.toNamed("/payment");
+    await Get.toNamed("/seat_origin");
   }
 }

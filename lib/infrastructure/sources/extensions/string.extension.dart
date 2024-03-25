@@ -75,3 +75,7 @@ extension TripSeatsAvailability on List<String> {
     return availableSeat;
   }
 }
+
+extension TripPassengerFormatter on String {
+  int get tripPassengerFormat => int.parse(split(" ")[0]);
+}

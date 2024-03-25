@@ -15,6 +15,7 @@ class Images {
   static String arrow = _iconPath("arrow");
   static String calendar = _iconPath("calendar");
   static String cancel = _iconPath("cancel");
+  static String driver = _iconPath("driver");
   static String eyeHide = _iconPath("eye_hide");
   static String eyeShow = _iconPath("eye_show");
   static String help = _iconPath("help");

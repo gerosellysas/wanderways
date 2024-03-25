@@ -77,7 +77,21 @@ class Nav {
       name: Routes.scheduleReturn,
       page: () => const ScheduleReturnScreen(),
       binding: ScheduleControllerBinding(),
-     transition: Transition.rightToLeft,
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.seatOrigin,
+      page: () => const SeatOriginScreen(),
+      binding: SeatControllerBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.seatReturn,
+      page: () => const SeatReturnScreen(),
+      binding: SeatControllerBinding(),
+      transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
     ),
   ];
