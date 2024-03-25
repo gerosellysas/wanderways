@@ -22,10 +22,12 @@ Purchase _$PurchaseFromJson(Map<String, dynamic> json) {
 mixin _$Purchase {
   int? get id => throw _privateConstructorUsedError;
   int? get uid => throw _privateConstructorUsedError;
-  @JsonKey(name: "booking_number")
-  String? get bookingNumber => throw _privateConstructorUsedError;
-  String? get passenger => throw _privateConstructorUsedError;
-  String? get seat => throw _privateConstructorUsedError;
+  @JsonKey(name: "booking_id")
+  String? get bookingId => throw _privateConstructorUsedError;
+  @JsonKey(name: "ticket_id")
+  String? get ticketId => throw _privateConstructorUsedError;
+  int? get passenger => throw _privateConstructorUsedError;
+  String? get seats => throw _privateConstructorUsedError;
   int? get tid => throw _privateConstructorUsedError;
   @JsonKey(name: "total_price")
   String? get totalPrice => throw _privateConstructorUsedError;
@@ -48,9 +50,10 @@ abstract class $PurchaseCopyWith<$Res> {
   $Res call(
       {int? id,
       int? uid,
-      @JsonKey(name: "booking_number") String? bookingNumber,
-      String? passenger,
-      String? seat,
+      @JsonKey(name: "booking_id") String? bookingId,
+      @JsonKey(name: "ticket_id") String? ticketId,
+      int? passenger,
+      String? seats,
       int? tid,
       @JsonKey(name: "total_price") String? totalPrice,
       @JsonKey(name: "payment_status") String? paymentStatus,
@@ -72,9 +75,10 @@ class _$PurchaseCopyWithImpl<$Res, $Val extends Purchase>
   $Res call({
     Object? id = freezed,
     Object? uid = freezed,
-    Object? bookingNumber = freezed,
+    Object? bookingId = freezed,
+    Object? ticketId = freezed,
     Object? passenger = freezed,
-    Object? seat = freezed,
+    Object? seats = freezed,
     Object? tid = freezed,
     Object? totalPrice = freezed,
     Object? paymentStatus = freezed,
@@ -89,17 +93,21 @@ class _$PurchaseCopyWithImpl<$Res, $Val extends Purchase>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as int?,
-      bookingNumber: freezed == bookingNumber
-          ? _value.bookingNumber
-          : bookingNumber // ignore: cast_nullable_to_non_nullable
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketId: freezed == ticketId
+          ? _value.ticketId
+          : ticketId // ignore: cast_nullable_to_non_nullable
               as String?,
       passenger: freezed == passenger
           ? _value.passenger
           : passenger // ignore: cast_nullable_to_non_nullable
-              as String?,
-      seat: freezed == seat
-          ? _value.seat
-          : seat // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seats: freezed == seats
+          ? _value.seats
+          : seats // ignore: cast_nullable_to_non_nullable
               as String?,
       tid: freezed == tid
           ? _value.tid
@@ -132,9 +140,10 @@ abstract class _$$PurchaseImplCopyWith<$Res>
   $Res call(
       {int? id,
       int? uid,
-      @JsonKey(name: "booking_number") String? bookingNumber,
-      String? passenger,
-      String? seat,
+      @JsonKey(name: "booking_id") String? bookingId,
+      @JsonKey(name: "ticket_id") String? ticketId,
+      int? passenger,
+      String? seats,
       int? tid,
       @JsonKey(name: "total_price") String? totalPrice,
       @JsonKey(name: "payment_status") String? paymentStatus,
@@ -154,9 +163,10 @@ class __$$PurchaseImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? uid = freezed,
-    Object? bookingNumber = freezed,
+    Object? bookingId = freezed,
+    Object? ticketId = freezed,
     Object? passenger = freezed,
-    Object? seat = freezed,
+    Object? seats = freezed,
     Object? tid = freezed,
     Object? totalPrice = freezed,
     Object? paymentStatus = freezed,
@@ -171,17 +181,21 @@ class __$$PurchaseImplCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as int?,
-      bookingNumber: freezed == bookingNumber
-          ? _value.bookingNumber
-          : bookingNumber // ignore: cast_nullable_to_non_nullable
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketId: freezed == ticketId
+          ? _value.ticketId
+          : ticketId // ignore: cast_nullable_to_non_nullable
               as String?,
       passenger: freezed == passenger
           ? _value.passenger
           : passenger // ignore: cast_nullable_to_non_nullable
-              as String?,
-      seat: freezed == seat
-          ? _value.seat
-          : seat // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seats: freezed == seats
+          ? _value.seats
+          : seats // ignore: cast_nullable_to_non_nullable
               as String?,
       tid: freezed == tid
           ? _value.tid
@@ -210,9 +224,10 @@ class _$PurchaseImpl implements _Purchase {
   const _$PurchaseImpl(
       {this.id,
       this.uid,
-      @JsonKey(name: "booking_number") this.bookingNumber,
+      @JsonKey(name: "booking_id") this.bookingId,
+      @JsonKey(name: "ticket_id") this.ticketId,
       this.passenger,
-      this.seat,
+      this.seats,
       this.tid,
       @JsonKey(name: "total_price") this.totalPrice,
       @JsonKey(name: "payment_status") this.paymentStatus,
@@ -226,12 +241,15 @@ class _$PurchaseImpl implements _Purchase {
   @override
   final int? uid;
   @override
-  @JsonKey(name: "booking_number")
-  final String? bookingNumber;
+  @JsonKey(name: "booking_id")
+  final String? bookingId;
   @override
-  final String? passenger;
+  @JsonKey(name: "ticket_id")
+  final String? ticketId;
   @override
-  final String? seat;
+  final int? passenger;
+  @override
+  final String? seats;
   @override
   final int? tid;
   @override
@@ -246,7 +264,7 @@ class _$PurchaseImpl implements _Purchase {
 
   @override
   String toString() {
-    return 'Purchase(id: $id, uid: $uid, bookingNumber: $bookingNumber, passenger: $passenger, seat: $seat, tid: $tid, totalPrice: $totalPrice, paymentStatus: $paymentStatus, paidAt: $paidAt)';
+    return 'Purchase(id: $id, uid: $uid, bookingId: $bookingId, ticketId: $ticketId, passenger: $passenger, seats: $seats, tid: $tid, totalPrice: $totalPrice, paymentStatus: $paymentStatus, paidAt: $paidAt)';
   }
 
   @override
@@ -256,11 +274,13 @@ class _$PurchaseImpl implements _Purchase {
             other is _$PurchaseImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.uid, uid) || other.uid == uid) &&
-            (identical(other.bookingNumber, bookingNumber) ||
-                other.bookingNumber == bookingNumber) &&
+            (identical(other.bookingId, bookingId) ||
+                other.bookingId == bookingId) &&
+            (identical(other.ticketId, ticketId) ||
+                other.ticketId == ticketId) &&
             (identical(other.passenger, passenger) ||
                 other.passenger == passenger) &&
-            (identical(other.seat, seat) || other.seat == seat) &&
+            (identical(other.seats, seats) || other.seats == seats) &&
             (identical(other.tid, tid) || other.tid == tid) &&
             (identical(other.totalPrice, totalPrice) ||
                 other.totalPrice == totalPrice) &&
@@ -271,8 +291,8 @@ class _$PurchaseImpl implements _Purchase {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, uid, bookingNumber,
-      passenger, seat, tid, totalPrice, paymentStatus, paidAt);
+  int get hashCode => Object.hash(runtimeType, id, uid, bookingId, ticketId,
+      passenger, seats, tid, totalPrice, paymentStatus, paidAt);
 
   @JsonKey(ignore: true)
   @override
@@ -292,9 +312,10 @@ abstract class _Purchase implements Purchase {
   const factory _Purchase(
       {final int? id,
       final int? uid,
-      @JsonKey(name: "booking_number") final String? bookingNumber,
-      final String? passenger,
-      final String? seat,
+      @JsonKey(name: "booking_id") final String? bookingId,
+      @JsonKey(name: "ticket_id") final String? ticketId,
+      final int? passenger,
+      final String? seats,
       final int? tid,
       @JsonKey(name: "total_price") final String? totalPrice,
       @JsonKey(name: "payment_status") final String? paymentStatus,
@@ -308,12 +329,15 @@ abstract class _Purchase implements Purchase {
   @override
   int? get uid;
   @override
-  @JsonKey(name: "booking_number")
-  String? get bookingNumber;
+  @JsonKey(name: "booking_id")
+  String? get bookingId;
   @override
-  String? get passenger;
+  @JsonKey(name: "ticket_id")
+  String? get ticketId;
   @override
-  String? get seat;
+  int? get passenger;
+  @override
+  String? get seats;
   @override
   int? get tid;
   @override

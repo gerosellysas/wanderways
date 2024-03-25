@@ -28,14 +28,15 @@ class DBService {
 
   static const String _colPurchase1 = "id";
   static const String _colPurchase2 = "uid";
-  static const String _colPurchase3 = "booking_number";
-  static const String _colPurchase4 = "passenger";
-  static const String _colPurchase5 = "seat";
-  static const String _colPurchase6 = "tid";
-  static const String _colPurchase7 = "total_price";
-  static const String _colPurchase8 = "payment_status";
-  static const String _colPurchase9 = "created_at";
-  static const String _colPurchase10 = "paid_at";
+  static const String _colPurchase3 = "booking_id";
+  static const String _colPurchase4 = "ticket_id";
+  static const String _colPurchase5 = "passenger";
+  static const String _colPurchase6 = "seats";
+  static const String _colPurchase7 = "tid";
+  static const String _colPurchase8 = "total_price";
+  static const String _colPurchase9 = "payment_status";
+  static const String _colPurchase10 = "created_at";
+  static const String _colPurchase11 = "paid_at";
 
   Future<Database> get database async {
     if (_db != null) return _db!;
@@ -72,12 +73,13 @@ class DBService {
         $_colPurchase2 INTEGER NOT NULL,
         $_colPurchase3 TEXT NOT NULL,
         $_colPurchase4 TEXT NOT NULL,
-        $_colPurchase5 TEXT NOT NULL,
-        $_colPurchase6 INTEGER NOT NULL,
-        $_colPurchase7 TEXT NOT NULL,
+        $_colPurchase5 INT NOT NULL,
+        $_colPurchase6 TEXT NOT NULL,
+        $_colPurchase7 INTEGER NOT NULL,
         $_colPurchase8 TEXT NOT NULL,
-        $_colPurchase9 TEXT,
-        $_colPurchase10 TEXT
+        $_colPurchase9 TEXT NOT NULL,
+        $_colPurchase10 TEXT,
+        $_colPurchase11 TEXT
       )
     ''');
   }

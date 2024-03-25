@@ -6,10 +6,12 @@ part 'purchase.dto.g.dart';
 class PurchaseDTO {
   final int? id;
   final int? uid;
-  @JsonKey(name: "booking_number")
-  final String? bookingNumber;
-  final String? passenger;
-  final String? seat;
+  @JsonKey(name: "booking_id")
+  final String? bookingId;
+  @JsonKey(name: "ticket_id")
+  final String? ticketId;
+  final int? passenger;
+  final String? seats;
   final int? tid;
   @JsonKey(name: "total_price")
   final String? totalPrice;
@@ -23,9 +25,10 @@ class PurchaseDTO {
   PurchaseDTO({
     this.id,
     this.uid,
-    this.bookingNumber,
+    this.bookingId,
+    this.ticketId,
     this.passenger,
-    this.seat,
+    this.seats,
     this.tid,
     this.totalPrice,
     this.paymentStatus,
