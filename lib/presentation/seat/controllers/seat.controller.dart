@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 import 'package:wander_ways/infrastructure/sources/extensions/extensions.dart';
+import 'package:wander_ways/presentation/components/components.dart';
 
+import '../../home/controllers/home.controller.dart';
 import '../../schedule/controllers/schedule.controller.dart';
 
 class SeatController extends GetxController {
   final ScheduleController schedule = Get.find<ScheduleController>();
+  HomeController get home => schedule.home;
+  StorageService get storage => home.storage;
+  NetworkService get network => home.network;
 
   var passenger = 0.obs;
   var originSeats = <RxString>[];
@@ -14,13 +19,12 @@ class SeatController extends GetxController {
   var returnSeatNumbers = <RxInt>[];
   var returnActivePassengers = <RxBool>[];
 
+  var bookingID = "".obs;
+
   @override
   void onInit() {
-    passenger.value = schedule.home.selectedSeat.value.tripPassengerFormat;
-    originSeats = schedule
-        .home.network.listTrip[schedule.tripIDs[0].value].seats!
-        .map((e) => e.obs)
-        .toList();
+    passenger.value = home.selectedSeat.value.tripPassengerFormat;
+    originSeats = network.trip.value.seats!.map((s) => s.obs).toList();
     for (var i = 0; i < passenger.value; i++) {
       originSeatNumbers.add((-1).obs);
       originActivePassengers.add(false.obs);
@@ -70,7 +74,7 @@ class SeatController extends GetxController {
 
   void _showSnackBar() {
     Get.rawSnackbar(
-      message: schedule.home.storage.language.value == 0
+      message: storage.language.value == 0
           ? "Ada penumpang yang belum memilih tempat duduk"
           : "There are passengers who haven't chosen their seats",
       snackStyle: SnackStyle.GROUNDED,
@@ -85,10 +89,12 @@ class SeatController extends GetxController {
       if (originSeatNumbers.any((number) => number.value == -1)) {
         return _showSnackBar();
       }
-      returnSeats = schedule
-          .home.network.listTrip[schedule.tripIDs[1].value].seats!
-          .map((e) => e.obs)
-          .toList();
+      if (!home.roundTrip.value) {
+        bookingID.value =
+            "WW-${DateTime.now().toLocal().millisecondsSinceEpoch}";
+        return await Get.toNamed("/payment");
+      }
+      returnSeats = network.returnTrip.value.seats!.map((s) => s.obs).toList();
       if (returnSeatNumbers.isNotEmpty) returnSeatNumbers.clear();
       if (returnActivePassengers.isNotEmpty) returnActivePassengers.clear();
       for (var i = 0; i < passenger.value; i++) {
@@ -100,6 +106,7 @@ class SeatController extends GetxController {
     if (returnSeatNumbers.any((number) => number.value == -1)) {
       return _showSnackBar();
     }
+    bookingID.value = "WW-${DateTime.now().toLocal().millisecondsSinceEpoch}";
     await Get.toNamed("/payment");
   }
 }

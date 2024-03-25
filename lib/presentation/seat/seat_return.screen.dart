@@ -14,17 +14,14 @@ class SeatReturnScreen extends GetView<SeatController> {
       builder: (c) {
         return Obx(
           () => SeatView(
-            languageSelected: c.schedule.home.storage.language.value,
+            languageSelected: c.storage.language.value,
             onBackTap: () => Get.back(),
             onContinueTap: () => c.onContinueTapped(1),
             passenger: Obx(() => SeatPassenger(
-                  languageSelected: c.schedule.home.storage.language.value,
-                  route: [
-                    c.schedule.home.selectedLocations[1].value!,
-                    c.schedule.home.selectedLocations[0].value!,
-                  ],
+                  languageSelected: c.storage.language.value,
+                  route: c.home.returnRoute,
                   date: c.schedule.newReturnDate.value ??
-                      c.schedule.home.selectedDates[1].value,
+                      c.home.selectedDates[1].value,
                   passenger: c.passenger.value,
                   seatsNo: c.returnSeatNumbers.map((n) => n.value).toList(),
                   activesPass:
@@ -32,7 +29,7 @@ class SeatReturnScreen extends GetView<SeatController> {
                   onTap: c.onReturnPassengerTapped,
                 )),
             selection: Obx(() => SeatSelector(
-                  languageSelected: c.schedule.home.storage.language.value,
+                  languageSelected: c.storage.language.value,
                   seats: c.returnSeats.map((s) => s.value).toList(),
                   seatsNo: c.returnSeatNumbers.map((n) => n.value).toList(),
                   activesPass:

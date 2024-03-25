@@ -13,4 +13,5 @@ class Routes {
   static const signUp = '/sign_up';
   static const splash = '/';
   static const welcome = '/welcome';
+  static const payment = '/payment';
 }

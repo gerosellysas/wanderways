@@ -29,6 +29,8 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   var scheduleLoadings = [false.obs, false.obs];
 
   var _pickerTapped = 0;
+  var originRoute = <String>[];
+  var returnRoute = <String>[];
 
   @override
   void onInit() {
@@ -172,8 +174,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     if (locationEmpties.any((empty) => empty.value == true)) return;
     Get.toNamed("/schedule_origin");
     scheduleLoadings[0].value = true;
-    var route = [selectedLocations[0].value!, selectedLocations[1].value!];
-    await network.getAllSelectedTripData(route).then((trips) {
+    originRoute = [
+      selectedLocations[0].value!,
+      selectedLocations[1].value!,
+    ];
+    returnRoute = [
+      selectedLocations[1].value!,
+      selectedLocations[0].value!,
+    ];
+    await network.getAllSelectedTripData(originRoute).then((trips) {
       network.listTrip.assignAll(trips);
       scheduleLoadings[0].value = false;
     });

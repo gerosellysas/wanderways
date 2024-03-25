@@ -20,8 +20,8 @@ class NetworkService extends GetxService {
 
   var listTrip = <Trip>[].obs;
   var listReturnTrip = <Trip>[].obs;
-  // var trip = const Trip().obs;
-  // var returnTrip = const Trip().obs;
+  var trip = const Trip().obs;
+  var returnTrip = const Trip().obs;
 
   Future<List<Trip>> _getAllTripData() async {
     return await _getAllData(_restApiRepo).invoke() as List<Trip>;

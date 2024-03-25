@@ -1,5 +1,6 @@
 export 'dashboard.screen.dart';
 export 'package:wander_ways/presentation/home/home.screen.dart';
+export 'package:wander_ways/presentation/payment/payment.screen.dart';
 export 'package:wander_ways/presentation/schedule/schedule_origin.screen.dart';
 export 'package:wander_ways/presentation/schedule/schedule_return.screen.dart';
 export 'package:wander_ways/presentation/seat/seat_origin.screen.dart';

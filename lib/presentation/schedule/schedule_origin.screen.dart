@@ -15,25 +15,22 @@ class ScheduleOriginScreen extends GetView<ScheduleController> {
       builder: (c) {
         return Obx(
           () => ScheduleView(
-            languageSelected: c.home.storage.language.value,
+            languageSelected: c.storage.language.value,
             loading: c.home.scheduleLoadings[0].value,
-            listEmpty: c.home.network.listTrip.isEmpty,
+            listEmpty: c.network.listTrip.isEmpty,
             onBackTap: () => Get.back(),
             onReloadTap: () => c.onReloadTapped(0),
-            route: [
-              c.home.selectedLocations[0].value,
-              c.home.selectedLocations[1].value,
-            ],
+            route: c.home.originRoute,
             detail: Obx(() => ScheduleDetail(
-                  languageSelected: c.home.storage.language.value,
+                  languageSelected: c.storage.language.value,
                   date: c.home.selectedDates[0].value,
                   seat: c.home.selectedSeat.value,
                   onTap: c.onDetailChangeTapped,
                 )),
             list: Obx(() => ScheduleList(
-                  languageSelected: c.home.storage.language.value,
+                  languageSelected: c.storage.language.value,
                   locale: c.home.locale,
-                  listTrip: c.home.network.listTrip,
+                  listTrip: c.network.listTrip,
                   onTap: (index) => c.onOriginScheduleTap(index),
                 )),
           ),

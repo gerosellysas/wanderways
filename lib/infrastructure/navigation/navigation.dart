@@ -94,5 +94,12 @@ class Nav {
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: Routes.payment,
+      page: () => const PaymentScreen(),
+      binding: PaymentControllerBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }
