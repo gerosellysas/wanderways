@@ -17,6 +17,7 @@ class PaymentScreen extends GetView<PaymentController> {
             onBackTap: () => Get.back(),
             languageSelected: c.storage.language.value,
             detail: Obx(() => PaymentDetail(
+                  loading: c.loading.value,
                   languageSelected: c.storage.language.value,
                   locale: c.home.locale,
                   user: c.storage.user.value,
@@ -48,6 +49,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   ],
                   paid: c.paid.value,
                   onPaidChange: c.onPaidChanged,
+                  onConfirmPaymentTap: c.onConfirmPaymentTapped,
                 )),
           ),
         );

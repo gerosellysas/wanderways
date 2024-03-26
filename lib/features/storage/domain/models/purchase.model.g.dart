@@ -15,7 +15,7 @@ _$PurchaseImpl _$$PurchaseImplFromJson(Map<String, dynamic> json) =>
       passenger: json['passenger'] as int?,
       seats: json['seats'] as String?,
       tid: json['tid'] as int?,
-      totalPrice: json['total_price'] as String?,
+      price: json['price'] as int?,
       paymentStatus: json['payment_status'] as String?,
       paidAt: json['paid_at'] as String?,
     );
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$PurchaseImplToJson(_$PurchaseImpl instance) =>
       'passenger': instance.passenger,
       'seats': instance.seats,
       'tid': instance.tid,
-      'total_price': instance.totalPrice,
+      'price': instance.price,
       'payment_status': instance.paymentStatus,
       'paid_at': instance.paidAt,
     };

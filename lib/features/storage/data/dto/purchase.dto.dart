@@ -13,8 +13,8 @@ class PurchaseDTO {
   final int? passenger;
   final String? seats;
   final int? tid;
-  @JsonKey(name: "total_price")
-  final String? totalPrice;
+  @JsonKey(name: "price")
+  final int? price;
   @JsonKey(name: "payment_status")
   final String? paymentStatus;
   @JsonKey(name: "created_at")
@@ -30,7 +30,7 @@ class PurchaseDTO {
     this.passenger,
     this.seats,
     this.tid,
-    this.totalPrice,
+    this.price,
     this.paymentStatus,
     this.createdAt,
     this.paidAt,

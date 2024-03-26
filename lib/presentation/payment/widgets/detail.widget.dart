@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart';
 import 'package:wander_ways/infrastructure/sources/constants/constants.dart';
 import 'package:wander_ways/infrastructure/sources/extensions/extensions.dart';
@@ -8,6 +9,7 @@ import 'package:wander_ways/infrastructure/theme/theme.dart';
 import 'package:wander_ways/presentation/components/components.dart';
 
 class PaymentDetail extends StatelessWidget {
+  final bool? loading;
   final int? languageSelected;
   final String? locale;
   final User? user;
@@ -21,9 +23,11 @@ class PaymentDetail extends StatelessWidget {
   final List<int>? prices;
   final bool? paid;
   final void Function(bool?)? onPaidChange;
+  final void Function()? onConfirmPaymentTap;
 
   const PaymentDetail({
     super.key,
+    this.loading,
     this.languageSelected,
     this.locale,
     this.user,
@@ -37,6 +41,7 @@ class PaymentDetail extends StatelessWidget {
     this.prices,
     this.paid,
     this.onPaidChange,
+    this.onConfirmPaymentTap,
   });
 
   @override
@@ -81,12 +86,27 @@ class PaymentDetail extends StatelessWidget {
               ),
               SizedBox(height: 48.h),
               Center(
-                child: NavButton(
-                  text: languageSelected == 0
-                      ? "Konfirmasi pembayaran"
-                      : "Confirm payment",
-                  w: double.maxFinite,
-                ),
+                child: loading!
+                    ? Container(
+                        height: 40.h,
+                        width: double.maxFinite,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Hues.primary,
+                          borderRadius: BorderRadius.circular(8.w),
+                        ),
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: Hues.white,
+                          size: 24.w,
+                        ),
+                      )
+                    : NavButton(
+                        text: languageSelected == 0
+                            ? "Konfirmasi pembayaran"
+                            : "Confirm payment",
+                        w: double.maxFinite,
+                        onTap: onConfirmPaymentTap,
+                      ),
               ),
               SizedBox(height: 12.h),
               Row(
@@ -145,8 +165,8 @@ class _PaymentUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90.h,
-      width: double.maxFinite,
+      height: 120.h,
+      width: double.maxFinite - 52.5.w,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Hues.white,
@@ -258,17 +278,6 @@ class _PaymentTrip extends StatelessWidget {
         ],
       );
 
-  String _seatNumber(List<int>? s) {
-    switch (s!.length) {
-      case 3:
-        return "${s[0].toString()} - ${s[1].toString()} - ${s[2].toString()}";
-      case 2:
-        return "${s[0].toString()} - ${s[1].toString()}";
-      default:
-        return s[0].toString();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -281,7 +290,7 @@ class _PaymentTrip extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.h),
           child: Text(
-            languageSelected == 0 ? "Detil Pemesanan" : "Booking Details",
+            languageSelected == 0 ? "Detail Pemesanan" : "Booking Details",
             style: Fonts.bold(),
           ),
         ),
@@ -334,9 +343,9 @@ class _PaymentTrip extends StatelessWidget {
                       : " person"),
         ),
         _detailCrad(
-          labelID: "Kursi : ",
-          labelEN: "Seat(s) : ",
-          value: _seatNumber(seats![0]),
+          labelID: "Nomor kursi : ",
+          labelEN: "Seat number: ",
+          value: seats![0].seatNumberToString(),
         ),
         Visibility(
           visible: roundTrip!,
@@ -381,6 +390,11 @@ class _PaymentTrip extends StatelessWidget {
                         : int.parse(passenger!) > 1
                             ? " persons"
                             : " person"),
+              ),
+              _detailCrad(
+                labelID: "Nomor kursi : ",
+                labelEN: "Seat number : ",
+                value: seats![1].seatNumberToString(),
               ),
             ],
           ),
@@ -473,7 +487,7 @@ class _PaymentSummary extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(30.w, 4.h, 0, 4.h),
           child: Divider(
             height: 8.h,
-            color: Hues.black,
+            color: Hues.greyDarkest,
           ),
         ),
         Row(

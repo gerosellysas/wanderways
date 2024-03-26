@@ -44,7 +44,7 @@ class RestApiService {
     }
   }
 
-  Future<Object?> putData(int tid, {required Map<String, dynamic> data}) async {
+  Future<dynamic> putData(int tid, {required Map<String, dynamic> data}) async {
     Dio? d = await dio;
     try {
       final response = await d.put(

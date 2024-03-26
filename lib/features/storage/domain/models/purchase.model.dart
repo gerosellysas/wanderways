@@ -14,7 +14,7 @@ class Purchase with _$Purchase {
     int? passenger,
     String? seats,
     int? tid,
-    @JsonKey(name: "total_price") String? totalPrice,
+    @JsonKey(name: "price") int? price,
     @JsonKey(name: "payment_status") String? paymentStatus,
     @JsonKey(name: "paid_at") String? paidAt,
   }) = _Purchase;

@@ -79,3 +79,35 @@ extension TripSeatsAvailability on List<String> {
 extension TripPassengerFormatter on String {
   int get tripPassengerFormat => int.parse(split(" ")[0]);
 }
+
+extension GenerateTicketID on List<String> {
+  String generateTicketID({
+    required int uid,
+    required int tid,
+    required List<int> seats,
+    required String date,
+    required String departure,
+  }) {
+    var routeCode = "${this[0][0].capitalize}${this[1][0].capitalize}";
+    seats.sort((a, b) => a.compareTo(b));
+    var seat = "";
+    for (var s in seats) {
+      if (s != -1) {
+        seat += "$s/";
+      }
+    }
+    var dateToDateTime = date.pickerDateFormat(Get.locale!.languageCode);
+    var departureToDateTime = departure.tripTimeDateFormat(
+      locale: Get.locale!.languageCode,
+    );
+    var dateTimeCombine = DateTime(
+      dateToDateTime.year,
+      dateToDateTime.month,
+      dateToDateTime.day,
+      departureToDateTime.hour,
+      departureToDateTime.minute,
+    );
+    var dateMilliEpoch = dateTimeCombine.millisecondsSinceEpoch;
+    return "$routeCode-$uid/$tid/$seat$dateMilliEpoch";
+  }
+}

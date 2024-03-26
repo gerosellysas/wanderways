@@ -6,6 +6,7 @@ import 'package:wander_ways/features/storage/domain/storage.domain.dart';
 
 class StorageService extends GetxService {
   final DBUserRepo _dbUserRepo = DBUserRepo();
+  final DBPurchaseRepo _dbPurchaseRepo = DBPurchaseRepo();
   final SecureStorageAuthRepo _secureAuthRepo = SecureStorageAuthRepo();
   final SharedPrefLanguageRepo _prefLanguageRepo = SharedPrefLanguageRepo();
 
@@ -29,14 +30,16 @@ class StorageService extends GetxService {
         repo: repo,
       );
 
-  Future<List<User>> fetchAllUser() async {
-    return await _fetchAll(_dbUserRepo).invoke() as List<User>;
-  }
-
   var listUser = <User>[].obs;
   var user = const User().obs;
 
+  var listPurchase = <Purchase>[].obs;
+
   var language = 0.obs;
+
+  Future<List<User>> fetchAllUser() async {
+    return await _fetchAll(_dbUserRepo).invoke() as List<User>;
+  }
 
   Future<User?> fetchSingleUser(int uid) async {
     return await _read(_dbUserRepo).invoke(
@@ -65,7 +68,43 @@ class StorageService extends GetxService {
   Future<void> deleteUser(int uid) async {
     await _delete(_dbUserRepo).invoke(
       params: {
-        "user": uid,
+        "uid": uid,
+      },
+    );
+  }
+
+  Future<List<Purchase>> fetchAllPurchase() async {
+    return await _fetchAll(_dbPurchaseRepo).invoke() as List<Purchase>;
+  }
+
+  Future<Purchase?> fetchSinglePurchase(int pid) async {
+    return await _read(_dbPurchaseRepo).invoke(
+      params: {
+        "pid": pid,
+      },
+    ) as Purchase?;
+  }
+
+  Future<void> upsertPurchase(Purchase purchase) async {
+    if (purchase.id == null) {
+      await _create(_dbPurchaseRepo).invoke(
+        params: {
+          "purchase": purchase,
+        },
+      );
+      return;
+    }
+    await _update(_dbPurchaseRepo).invoke(
+      params: {
+        "purchase": purchase,
+      },
+    );
+  }
+
+  Future<void> deletePurchase(int pid) async {
+    await _delete(_dbUserRepo).invoke(
+      params: {
+        "pid": pid,
       },
     );
   }
