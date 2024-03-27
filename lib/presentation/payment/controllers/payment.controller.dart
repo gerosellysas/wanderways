@@ -141,10 +141,6 @@ class PaymentController extends GetxController {
     if (pop) return;
     await Get.offNamedUntil(
       "/dashboard",
-      arguments: {
-        "language": storage.language.value,
-        "index": 0.obs,
-      },
       ModalRoute.withName("/dashboard"),
     );
   }
