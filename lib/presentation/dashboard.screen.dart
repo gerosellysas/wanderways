@@ -142,16 +142,28 @@ class DashboardScreen extends StatelessWidget {
               switch (index) {
                 case 1:
                   // BookingControllerBinding().dependencies();
-                  Get.reload<BookingController>();
-                  break;
+                  if (!(Get.isRegistered<BookingController>())) {
+                    Get.lazyPut<BookingController>(() => BookingController());
+                  } else {
+                    Get.reload<BookingController>();
+                  }
+                  return;
                 case 2:
-                  break;
+                  return;
                 case 3:
-                  Get.reload<ProfileController>();
-                  break;
+                  if (!(Get.isRegistered<ProfileController>())) {
+                    Get.lazyPut<ProfileController>(() => ProfileController());
+                  } else {
+                    Get.reload<ProfileController>();
+                  }
+                  return;
                 default:
                   // HomeControllerBinding().dependencies();
-                  Get.reload<HomeController>();
+                  if (!(Get.isRegistered<HomeController>())) {
+                    Get.lazyPut<HomeController>(() => HomeController());
+                  } else {
+                    Get.reload<HomeController>();
+                  }
               }
             },
           ),
