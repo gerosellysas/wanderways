@@ -52,9 +52,11 @@ class BookingController extends GetxController {
     var returnTrips = <Trip>[];
     for (var p in storage.listPurchase) {
       var departureTrip = await network.getSingleTripData(p.departureTripId!);
+      if (departureTrip == null) return;
       departureTrips.add(departureTrip);
       if (p.roundTrip == 1) {
         var returnTrip = await network.getSingleTripData(p.returnTripId!);
+        if (returnTrip == null) return;
         returnTrips.add(returnTrip);
       }
     }

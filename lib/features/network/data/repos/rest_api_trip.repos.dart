@@ -30,8 +30,10 @@ class RestApiRepo implements IRestApi {
 
   @override
   Future<Trip?> getSingleData({Map<String, dynamic>? params}) async {
-    var res = await _service.getSingleData(params!["tid"] as int)
-        as Map<String, dynamic>;
+    if (params == null) return null;
+    var res = await _service.getSingleData(params["tid"] as int)
+        as Map<String, dynamic>?;
+    if (res == null) return null;
     var tripDTO = TripDTO.fromJson(res);
     return Trip(
       id: int.parse(tripDTO.id!),

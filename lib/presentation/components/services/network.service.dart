@@ -40,10 +40,10 @@ class NetworkService extends GetxService {
     return tripList;
   }
 
-  Future<Trip> getSingleTripData(int tid) async {
+  Future<Trip?> getSingleTripData(int tid) async {
     return await _getSingleData(_restApiRepo).invoke(params: {
       "tid": tid,
-    }) as Trip;
+    }) as Trip?;
   }
 
   Future<Trip> updateTripSeat(Trip trip) async {

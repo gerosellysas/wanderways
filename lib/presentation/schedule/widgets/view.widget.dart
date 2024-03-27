@@ -89,7 +89,7 @@ class ScheduleView extends StatelessWidget {
             ),
           ),
           TopBar(
-            title: "${route![0]} - ${route![1]}",
+            title: "${route?[0]} - ${route?[1]}",
             style: TopBarStyle.enableBack,
             onBackTap: onBackTap,
           ),
