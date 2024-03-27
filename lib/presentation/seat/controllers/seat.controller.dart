@@ -25,6 +25,8 @@ class SeatController extends GetxController {
   void onInit() {
     passenger.value = home.selectedSeat.value.tripPassengerFormat;
     originSeats = network.trip.value.seats!.map((s) => s.obs).toList();
+    if (originSeatNumbers.isNotEmpty) originSeatNumbers.clear();
+    if (originActivePassengers.isNotEmpty) originActivePassengers.clear();
     for (var i = 0; i < passenger.value; i++) {
       originSeatNumbers.add((-1).obs);
       originActivePassengers.add(false.obs);
@@ -54,6 +56,10 @@ class SeatController extends GetxController {
   }
 
   void onOriginSeatSelected(int index) {
+    if (originActivePassengers.every((a) => !a.value)) {
+      _showSnackBar("Pilih penumpang", "Select passenger");
+      return;
+    }
     var passIndex = originActivePassengers.indexWhere((active) => active.value);
     originSeatNumbers[passIndex].value = index + 1;
   }
@@ -68,26 +74,32 @@ class SeatController extends GetxController {
   }
 
   void onReturnSeatSelected(int index) {
+    if (returnActivePassengers.every((a) => !a.value)) {
+      _showSnackBar("Pilih penumpang", "Select passenger");
+      return;
+    }
     var passIndex = returnActivePassengers.indexWhere((active) => active.value);
     returnSeatNumbers[passIndex].value = index + 1;
   }
 
-  void _showSnackBar() {
+  void _showSnackBar(String messageID, String messageEN) {
     Get.rawSnackbar(
-      message: storage.language.value == 0
-          ? "Ada penumpang yang belum memilih tempat duduk"
-          : "There are passengers who haven't chosen their seats",
+      message: storage.language.value == 0 ? messageID : messageEN,
       snackStyle: SnackStyle.GROUNDED,
       snackPosition: SnackPosition.BOTTOM,
       isDismissible: false,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1000),
+      animationDuration: const Duration(milliseconds: 500),
     );
   }
 
   Future<void> onContinueTapped(int screen) async {
     if (screen == 0) {
       if (originSeatNumbers.any((number) => number.value == -1)) {
-        return _showSnackBar();
+        return _showSnackBar(
+          "Ada penumpang yang belum memilih tempat duduk",
+          "There are passengers who haven't chosen their seats",
+        );
       }
       if (!home.roundTrip.value) {
         bookingID.value =
@@ -104,7 +116,10 @@ class SeatController extends GetxController {
       return await Get.toNamed("/seat_return");
     }
     if (returnSeatNumbers.any((number) => number.value == -1)) {
-      return _showSnackBar();
+      return _showSnackBar(
+        "Ada penumpang yang belum memilih tempat duduk",
+        "There are passengers who haven't chosen their seats",
+      );
     }
     bookingID.value = "WW-${DateTime.now().toLocal().millisecondsSinceEpoch}";
     await Get.toNamed("/payment");

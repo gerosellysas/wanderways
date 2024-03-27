@@ -6,12 +6,14 @@ import 'package:wander_ways/presentation/components/components.dart';
 
 class PaymentView extends StatelessWidget {
   final int? languageSelected;
+  final bool? canPop;
   final Widget? detail;
   final void Function()? onBackTap;
 
   const PaymentView({
     super.key,
     this.languageSelected,
+    this.canPop,
     this.detail,
     this.onBackTap,
   });
@@ -20,29 +22,32 @@ class PaymentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Hues.greyLightest,
-      body: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, _topHeight, 0, 0),
-            child: Container(
-              height: 1.sh - _topHeight,
-              width: 1.sw,
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  detail!,
-                ],
+    return PopScope(
+      canPop: canPop!,
+      child: Scaffold(
+        backgroundColor: Hues.greyLightest,
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, _topHeight, 0, 0),
+              child: Container(
+                height: 1.sh - _topHeight,
+                width: 1.sw,
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    detail!,
+                  ],
+                ),
               ),
             ),
-          ),
-          TopBar(
-            title: languageSelected == 0 ? "Pembayaran" : "Payment",
-            style: TopBarStyle.enableBack,
-            onBackTap: onBackTap,
-          ),
-        ],
+            TopBar(
+              title: languageSelected == 0 ? "Pembayaran" : "Payment",
+              style: TopBarStyle.enableBack,
+              onBackTap: onBackTap,
+            ),
+          ],
+        ),
       ),
     );
   }

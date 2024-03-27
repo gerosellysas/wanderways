@@ -60,9 +60,11 @@ class SeatSelector extends StatelessWidget {
       var seatP3 = activesPass!.length == 3 && seatsNo![2] - 1 == index;
       var selected = seatActive || seatP1 || seatP2 || seatP3;
       return GestureDetector(
-        onTap: template == true || !available[index] || selected
-            ? null
-            : () => onSelect!(index),
+        onTap: template == true
+            ? () => onSelect!(index)
+            : !available[index] || selected
+                ? null
+                : () => onSelect!(index),
         child: Container(
           height: _detailSize * 1.5,
           width: _detailSize * 1.5,

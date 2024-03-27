@@ -166,7 +166,7 @@ class _PaymentUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 120.h,
-      width: double.maxFinite - 52.5.w,
+      width: double.maxFinite,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Hues.white,
@@ -195,35 +195,38 @@ class _PaymentUser extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${languageSelected == 0 ? "Selamat" : "Congratulation"} ${user!.firstName} ${user!.lastName}!",
-                style: Fonts.bold(),
-              ),
-              Text(
-                languageSelected == 0
-                    ? "Tiket Anda berhasil dipesan."
-                    : roundTrip!
-                        ? "Your tickets are successfully booked."
-                        : "Your ticket is successfully booked.",
-                style: Fonts.regular(color: Hues.greyDarkest, size: 12),
-              ),
-              const Expanded(child: SizedBox()),
-              Row(
-                children: [
-                  Text(
-                    "Booking ID : ",
-                    style: Fonts.regular(),
-                  ),
-                  Text(
-                    "$bookingID",
-                    style: Fonts.semiBold(color: Hues.primary),
-                  ),
-                ],
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(right: 52.5.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${languageSelected == 0 ? "Selamat" : "Congratulation"} ${user!.firstName} ${user!.lastName}!",
+                  style: Fonts.bold(),
+                ),
+                Text(
+                  languageSelected == 0
+                      ? "Tiket Anda berhasil dipesan."
+                      : roundTrip!
+                          ? "Your tickets are successfully booked."
+                          : "Your ticket is successfully booked.",
+                  style: Fonts.regular(color: Hues.greyDarkest, size: 12),
+                ),
+                const Expanded(child: SizedBox()),
+                Row(
+                  children: [
+                    Text(
+                      "Booking ID : ",
+                      style: Fonts.regular(),
+                    ),
+                    Text(
+                      "$bookingID",
+                      style: Fonts.semiBold(color: Hues.primary),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -357,7 +360,7 @@ class _PaymentTrip extends StatelessWidget {
                 child: Text(
                   languageSelected == 0
                       ? "Perjalanan Kembali :"
-                      : "Return Trtip :",
+                      : "Return Trip :",
                   style: Fonts.semiBold(),
                 ),
               ),

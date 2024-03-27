@@ -1,3 +1,4 @@
+export 'package:wander_ways/infrastructure/navigation/bindings/controllers/booking.controller.binding.dart'; 
 export 'package:wander_ways/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
 export 'package:wander_ways/infrastructure/navigation/bindings/controllers/payment.controller.binding.dart'; 
 export 'package:wander_ways/infrastructure/navigation/bindings/controllers/schedule.controller.binding.dart'; 

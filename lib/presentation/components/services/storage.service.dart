@@ -34,6 +34,7 @@ class StorageService extends GetxService {
   var user = const User().obs;
 
   var listPurchase = <Purchase>[].obs;
+  var purchase = const Purchase().obs;
 
   var language = 0.obs;
 
@@ -102,7 +103,7 @@ class StorageService extends GetxService {
   }
 
   Future<void> deletePurchase(int pid) async {
-    await _delete(_dbUserRepo).invoke(
+    await _delete(_dbPurchaseRepo).invoke(
       params: {
         "pid": pid,
       },

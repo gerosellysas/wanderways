@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wander_ways/features/network/domain/network.domain.dart';
 import 'package:wander_ways/features/storage/domain/storage.domain.dart';
@@ -23,7 +24,6 @@ class PaymentController extends GetxController {
   @override
   void onInit() {
     //
-    print("=====> ${seat.originSeatNumbers}");
     super.onInit();
   }
 
@@ -48,7 +48,7 @@ class PaymentController extends GetxController {
       departure: network.trip.value.departure!,
     );
     if (home.roundTrip.value) {
-      ticketIDs[1].value = home.originRoute.generateTicketID(
+      ticketIDs[1].value = home.returnRoute.generateTicketID(
         uid: storage.user.value.id!,
         tid: network.returnTrip.value.id!,
         seats: seat.returnSeatNumbers.map((s) => s.value).toList(),
@@ -63,13 +63,13 @@ class PaymentController extends GetxController {
   }
 
   Future<void> _updateTripSeats(Rx<Trip> trip, List<RxInt> bookedSeats) async {
+    bookedSeats.sort((a, b) => a.value.compareTo(b.value));
     var newSeats = <String>[];
-    for (var i = 0; i < trip.value.seats!.length; i++) {
-      for (var s in bookedSeats) {
+    newSeats.assignAll(trip.value.seats!);
+    for (var s in bookedSeats) {
+      for (var i = 0; i < newSeats.length; i++) {
         if ((s.value - 1) == i) {
-          newSeats.insert(i, "booked");
-        } else {
-          newSeats.insert(i, trip.value.seats![i]);
+          newSeats[i] = "booked";
         }
       }
     }
@@ -81,46 +81,50 @@ class PaymentController extends GetxController {
     loading.value = true;
     if (paid.value) await generateTicketID();
     var nowStr = DateTime.now().toLocal().toIso8601String();
-    var originPurchase = Purchase(
+    storage.purchase.value = Purchase(
       uid: storage.user.value.id,
       bookingId: seat.bookingID.value,
-      ticketId: paid.value ? ticketIDs[0].value : null,
-      tid: network.trip.value.id,
       passenger: seat.passenger.value,
-      seats: seat.originSeatNumbers
+      roundTrip: home.roundTrip.value ? 1 : 0,
+      departureTripId: network.trip.value.id!,
+      departureTicketId: paid.value ? ticketIDs[0].value : null,
+      departureDate: home.selectedDates[0].value,
+      departureSeats: seat.originSeatNumbers
           .map((s) => s.value)
           .toList()
           .seatNumberToString(),
-      price: seat.passenger.value * network.trip.value.price!,
+      departurePrice: seat.passenger.value * network.trip.value.price!,
+      returnTripId: network.returnTrip.value.id,
+      returnTicketId: home.roundTrip.value
+          ? paid.value
+              ? ticketIDs[1].value
+              : null
+          : null,
+      returnDate: home.roundTrip.value ? home.selectedDates[1].value : null,
+      returnSeats: home.roundTrip.value
+          ? seat.returnSeatNumbers
+              .map((s) => s.value)
+              .toList()
+              .seatNumberToString()
+          : null,
+      returnPrice: home.roundTrip.value
+          ? seat.passenger.value * network.returnTrip.value.price!
+          : null,
       paymentStatus: paid.value ? "paid" : "wait",
       paidAt: paid.value ? nowStr : null,
     );
-    await storage.upsertPurchase(originPurchase);
+    await storage.upsertPurchase(storage.purchase.value);
     await _updateTripSeats(network.trip, seat.originSeatNumbers);
     if (home.roundTrip.value) {
-      var returnPurchase = Purchase(
-        uid: storage.user.value.id,
-        bookingId: seat.bookingID.value,
-        ticketId: paid.value ? ticketIDs[1].value : null,
-        tid: network.returnTrip.value.id,
-        passenger: seat.passenger.value,
-        seats: seat.returnSeatNumbers
-            .map((s) => s.value)
-            .toList()
-            .seatNumberToString(),
-        price: seat.passenger.value * network.returnTrip.value.price!,
-        paymentStatus: paid.value ? "paid" : "wait",
-        paidAt: paid.value ? nowStr : null,
-      );
-      await storage.upsertPurchase(returnPurchase);
       await _updateTripSeats(network.returnTrip, seat.returnSeatNumbers);
     }
-    _onPaymentPaid();
+    await _resetHomeVariable();
+    paid.value ? _onPaymentPaid() : _onPaymentPaidPopped(false);
   }
 
   Future<void> _onPaymentPaid() async {
     loading.value = false;
-    await Get.off(
+    await Get.to(
       () => Obx(() => PaymentPaid(
             onPop: _onPaymentPaidPopped,
             languageSelected: storage.language.value,
@@ -135,16 +139,35 @@ class PaymentController extends GetxController {
 
   Future<void> _onPaymentPaidPopped(bool pop) async {
     if (pop) return;
-    await Get.offAllNamed(
+    await Get.offNamedUntil(
       "/dashboard",
       arguments: {
         "language": storage.language.value,
         "index": 0.obs,
       },
+      ModalRoute.withName("/dashboard"),
     );
   }
 
   Future<void> _goToTicketScreen() async {
-    await Get.offAllNamed("/ticket");
+    await _resetHomeVariable();
+    await Get.offNamedUntil(
+      "/booking_status",
+      ModalRoute.withName("/dashboard"),
+    );
+  }
+
+  Future<void> _resetHomeVariable() async {
+    home.selectedLocations.assignAll([Rxn(null), Rxn(null)]);
+    home.locationEmpties.assignAll([false.obs, false.obs]);
+    home.selectedDates.assignAll([
+      DateTime.now().toLocal().pickerStringFormat(home.locale).obs,
+      DateTime.now().toLocal().pickerStringFormat(home.locale).obs,
+    ]);
+    home.pickerDates.assignAll([Rxn(null), Rxn(null)]);
+    home.selectedSeat.value =
+        storage.language.value == 0 ? "1 kursi" : "1 seat";
+    home.roundTrip.value = false;
+    home.returnFieldAnimation.reset();
   }
 }

@@ -29,14 +29,21 @@ class DBService {
   static const String _colPurchase1 = "id";
   static const String _colPurchase2 = "uid";
   static const String _colPurchase3 = "booking_id";
-  static const String _colPurchase4 = "ticket_id";
-  static const String _colPurchase5 = "tid";
-  static const String _colPurchase6 = "passenger";
-  static const String _colPurchase7 = "seats";
-  static const String _colPurchase8 = "price";
-  static const String _colPurchase9 = "payment_status";
-  static const String _colPurchase10 = "created_at";
-  static const String _colPurchase11 = "paid_at";
+  static const String _colPurchase4 = "passenger";
+  static const String _colPurchase5 = "round_trip";
+  static const String _colPurchase6 = "departure_trip_id";
+  static const String _colPurchase7 = "departure_ticket_id";
+  static const String _colPurchase8 = "departure_date";
+  static const String _colPurchase9 = "departure_seats";
+  static const String _colPurchase10 = "departure_price";
+  static const String _colPurchase11 = "return_trip_id";
+  static const String _colPurchase12 = "return_ticket_id";
+  static const String _colPurchase13 = "return_date";
+  static const String _colPurchase14 = "return_seats";
+  static const String _colPurchase15 = "return_price";
+  static const String _colPurchase16 = "payment_status";
+  static const String _colPurchase17 = "created_at";
+  static const String _colPurchase18 = "paid_at";
 
   Future<Database> get database async {
     if (_db != null) return _db!;
@@ -72,14 +79,21 @@ class DBService {
         $_colPurchase1 INTEGER PRIMARY KEY AUTOINCREMENT,
         $_colPurchase2 INTEGER NOT NULL,
         $_colPurchase3 TEXT NOT NULL,
-        $_colPurchase4 TEXT,
+        $_colPurchase4 INTEGER NOT NULL,
         $_colPurchase5 INTEGER NOT NULL,
         $_colPurchase6 INTEGER NOT NULL,
-        $_colPurchase7 TEXT NOT NULL,
-        $_colPurchase8 INTEGER NOT NULL,
+        $_colPurchase7 TEXT,
+        $_colPurchase8 TEXT NOT NULL,
         $_colPurchase9 TEXT NOT NULL,
-        $_colPurchase10 TEXT,
-        $_colPurchase11 TEXT
+        $_colPurchase10 INTEGER NOT NULL,
+        $_colPurchase11 INTEGER,
+        $_colPurchase12 TEXT,
+        $_colPurchase13 TEXT,
+        $_colPurchase14 TEXT,
+        $_colPurchase15 INTEGER,
+        $_colPurchase16 TEXT NOT NULL,
+        $_colPurchase17 TEXT,
+        $_colPurchase18 TEXT
       )
     ''');
   }

@@ -14,6 +14,7 @@ class PaymentScreen extends GetView<PaymentController> {
       builder: (c) {
         return Obx(
           () => PaymentView(
+            canPop: !c.loading.value,
             onBackTap: () => Get.back(),
             languageSelected: c.storage.language.value,
             detail: Obx(() => PaymentDetail(
@@ -24,8 +25,8 @@ class PaymentScreen extends GetView<PaymentController> {
                   roundTrip: c.home.roundTrip.value,
                   bookingID: c.seat.bookingID.value,
                   route: [
-                    c.home.selectedLocations[0].value!,
-                    c.home.selectedLocations[1].value!,
+                    c.home.selectedLocations[0].value ?? "",
+                    c.home.selectedLocations[1].value ?? "",
                   ],
                   dates: [
                     c.home.selectedDates[0].value,

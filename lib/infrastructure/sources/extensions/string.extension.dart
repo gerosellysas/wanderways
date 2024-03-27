@@ -93,7 +93,7 @@ extension GenerateTicketID on List<String> {
     var seat = "";
     for (var s in seats) {
       if (s != -1) {
-        seat += "$s/";
+        seat += "$s";
       }
     }
     var dateToDateTime = date.pickerDateFormat(Get.locale!.languageCode);
@@ -108,6 +108,22 @@ extension GenerateTicketID on List<String> {
       departureToDateTime.minute,
     );
     var dateMilliEpoch = dateTimeCombine.millisecondsSinceEpoch;
-    return "$routeCode-$uid/$tid/$seat$dateMilliEpoch";
+    return "$routeCode$uid$tid$seat$dateMilliEpoch";
+  }
+}
+
+extension SeatNumbersToListInt on String {
+  List<int> seatNumberToListInt() {
+    var split = this.split(" ").join("").split("-");
+    switch (split.length) {
+      case 3:
+        return [int.parse(split[0]), int.parse(split[1]), int.parse(split[2])];
+      case 2:
+        return [int.parse(split[0]), int.parse(split[1])];
+      case 1:
+        return [int.parse(split[0])];
+      default:
+        return [];
+    }
   }
 }

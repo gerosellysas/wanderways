@@ -3,8 +3,11 @@ class Routes {
     return splash;
   }
 
-  static const dasboard = '/dashboard';
+  static const booking = '/booking';
+  static const bookingStatus = '/booking_status';
+  static const dashboard = '/dashboard';
   static const home = '/home';
+  static const payment = '/payment';
   static const scheduleOrigin = '/schedule_origin';
   static const scheduleReturn = '/schedule_return';
   static const seatOrigin = '/seat_origin';
@@ -13,5 +16,4 @@ class Routes {
   static const signUp = '/sign_up';
   static const splash = '/';
   static const welcome = '/welcome';
-  static const payment = '/payment';
 }

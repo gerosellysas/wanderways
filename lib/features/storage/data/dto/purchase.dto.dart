@@ -8,13 +8,29 @@ class PurchaseDTO {
   final int? uid;
   @JsonKey(name: "booking_id")
   final String? bookingId;
-  @JsonKey(name: "ticket_id")
-  final String? ticketId;
   final int? passenger;
-  final String? seats;
-  final int? tid;
-  @JsonKey(name: "price")
-  final int? price;
+  @JsonKey(name: "round_trip")
+  final int? roundTrip;
+  @JsonKey(name: "departure_trip_id")
+  final int? departureTripId;
+  @JsonKey(name: "departure_ticket_id")
+  final String? departureTicketId;
+  @JsonKey(name: "departure_date")
+  final String? departureDate;
+  @JsonKey(name: "departure_seats")
+  final String? departureSeats;
+  @JsonKey(name: "departure_price")
+  final int? departurePrice;
+  @JsonKey(name: "return_trip_id")
+  final int? returnTripId;
+  @JsonKey(name: "return_ticket_id")
+  final String? returnTicketId;
+  @JsonKey(name: "return_date")
+  final String? returnDate;
+  @JsonKey(name: "return_seats")
+  final String? returnSeats;
+  @JsonKey(name: "return_price")
+  final int? returnPrice;
   @JsonKey(name: "payment_status")
   final String? paymentStatus;
   @JsonKey(name: "created_at")
@@ -26,11 +42,18 @@ class PurchaseDTO {
     this.id,
     this.uid,
     this.bookingId,
-    this.ticketId,
     this.passenger,
-    this.seats,
-    this.tid,
-    this.price,
+    this.roundTrip,
+    this.departureTripId,
+    this.departureTicketId,
+    this.departureDate,
+    this.departureSeats,
+    this.departurePrice,
+    this.returnTripId,
+    this.returnTicketId,
+    this.returnDate,
+    this.returnSeats,
+    this.returnPrice,
     this.paymentStatus,
     this.createdAt,
     this.paidAt,

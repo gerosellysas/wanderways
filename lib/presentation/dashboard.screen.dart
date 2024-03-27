@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import '../infrastructure/sources/constants/constants.dart';
 import '../infrastructure/theme/theme.dart';
+import 'booking/controllers/booking.controller.dart';
+import 'home/controllers/home.controller.dart';
 import 'screens.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -63,7 +65,7 @@ class DashboardScreen extends StatelessWidget {
 
   List<Widget> get _screens => [
         const HomeScreen(),
-        Container(color: Hues.greyLightest),
+        const BookingScreen(),
         Container(color: Hues.greyLightest),
         Container(color: Hues.greyLightest),
       ];
@@ -108,8 +110,48 @@ class DashboardScreen extends StatelessWidget {
                 ),
               );
             },
-            onTap: (index) {
+            onTap: (index) async {
+              // switch (index) {
+              //   case 1:
+              //     Get.isRegistered<HomeController>()
+              //         ? await Get.delete<HomeController>()
+              //         : null;
+              //     break;
+              //   case 2:
+              //     Get.isRegistered<HomeController>()
+              //         ? await Get.delete<HomeController>()
+              //         : null;
+              //     Get.isRegistered<BookingController>()
+              //         ? await Get.delete<BookingController>()
+              //         : null;
+              //     break;
+              //   case 3:
+              //     Get.isRegistered<HomeController>()
+              //         ? await Get.delete<HomeController>()
+              //         : null;
+              //     Get.isRegistered<BookingController>()
+              //         ? await Get.delete<BookingController>()
+              //         : null;
+              //     break;
+              //   default:
+              //     Get.isRegistered<BookingController>()
+              //         ? await Get.delete<BookingController>()
+              //         : null;
+              // }
               _args["index"].value = index;
+              switch (index) {
+                case 1:
+                  // BookingControllerBinding().dependencies();
+                  Get.reload<BookingController>();
+                  break;
+                case 2:
+                  break;
+                case 3:
+                  break;
+                default:
+                  // HomeControllerBinding().dependencies();
+                  Get.reload<HomeController>();
+              }
             },
           ),
         ),
