@@ -170,6 +170,6 @@ class ProfileController extends GetxController with WidgetsBindingObserver {
 
   void onLanguageChanged(bool id) {
     var language = id ? 0 : 1;
-    storage.savePrefLanguage(language);
+    storage.savePrefLanguage(language).then((_) => storage.setLocale());
   }
 }
