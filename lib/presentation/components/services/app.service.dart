@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class AppService extends GetxService with WidgetsBindingObserver {
   final _view = WidgetsBinding.instance.platformDispatcher.views.first;
 
+  var screenIndex = 0.obs;
   var bottomHeight = 0.0.obs;
 
   @override

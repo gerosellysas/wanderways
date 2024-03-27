@@ -58,6 +58,7 @@ class Nav {
       bindings: [
         HomeControllerBinding(),
         BookingControllerBinding(),
+        ProfileControllerBinding(),
       ],
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 450),
@@ -115,6 +116,20 @@ class Nav {
       name: Routes.bookingStatus,
       page: () => const BookingStatusScreen(),
       binding: BookingControllerBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.profile,
+      page: () => const ProfileScreen(),
+      binding: ProfileControllerBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: Routes.profileUser,
+      page: () => const ProfileUserScreen(),
+      binding: ProfileControllerBinding(),
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
     ),

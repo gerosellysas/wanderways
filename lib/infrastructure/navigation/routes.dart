@@ -8,6 +8,8 @@ class Routes {
   static const dashboard = '/dashboard';
   static const home = '/home';
   static const payment = '/payment';
+  static const profile = '/profile';
+  static const profileUser = '/profile_user';
   static const scheduleOrigin = '/schedule_origin';
   static const scheduleReturn = '/schedule_return';
   static const seatOrigin = '/seat_origin';

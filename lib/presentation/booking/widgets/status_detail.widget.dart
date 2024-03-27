@@ -347,9 +347,7 @@ class _BookingStatusButton extends StatelessWidget {
       children: [
         status! == "wait"
             ? NavButton(
-                text: languageSelected == 0
-                    ? "Bayar pesanan"
-                    : "Pay this booking",
+                text: languageSelected == 0 ? "Bayar sekarng" : "Pay now",
                 onTap: onPayTap,
               )
             : const SizedBox(),

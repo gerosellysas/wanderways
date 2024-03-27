@@ -7,16 +7,16 @@ import 'package:get/get.dart';
 import '../infrastructure/sources/constants/constants.dart';
 import '../infrastructure/theme/theme.dart';
 import 'booking/controllers/booking.controller.dart';
+import 'components/components.dart';
 import 'home/controllers/home.controller.dart';
+import 'profile/controllers/profile.controller.dart';
 import 'screens.dart';
 
 class DashboardScreen extends StatelessWidget {
-  final dynamic _args;
+  final AppService _app = Get.find<AppService>();
+  final StorageService _storage = Get.find<StorageService>();
 
-  DashboardScreen({
-    super.key,
-    dynamic args,
-  }) : _args = args ?? Get.arguments;
+  DashboardScreen({super.key});
 
   Widget _tabIcon(String icon) => Container(
         height: 22.w,
@@ -57,17 +57,17 @@ class DashboardScreen extends StatelessWidget {
       ];
 
   List<String> get _labels => [
-        _args["language"] == 0 ? "Beranda" : "Home",
-        _args["language"] == 0 ? "Pemesanan" : "Booking",
-        _args["language"] == 0 ? "Kotak Masuk" : "Inbox",
-        _args["language"] == 0 ? "Profil" : "Profile",
+        _storage.language.value == 0 ? "Beranda" : "Home",
+        _storage.language.value == 0 ? "Pemesanan" : "Booking",
+        _storage.language.value == 0 ? "Kotak Masuk" : "Inbox",
+        _storage.language.value == 0 ? "Profil" : "Profile",
       ];
 
   List<Widget> get _screens => [
         const HomeScreen(),
         const BookingScreen(),
         Container(color: Hues.greyLightest),
-        Container(color: Hues.greyLightest),
+        const ProfileScreen(),
       ];
 
   @override
@@ -75,12 +75,12 @@ class DashboardScreen extends StatelessWidget {
     return Obx(
       () => Scaffold(
         backgroundColor: Hues.greyLightest,
-        body: _screens[_args["index"].value],
+        body: _screens[_app.screenIndex.value],
         bottomNavigationBar: Obx(
           () => AnimatedBottomNavigationBar.builder(
             backgroundColor: Hues.white,
             itemCount: 4,
-            activeIndex: _args["index"].value,
+            activeIndex: _app.screenIndex.value,
             gapWidth: 0,
             splashColor: Hues.accent,
             shadow: BoxShadow(
@@ -138,7 +138,7 @@ class DashboardScreen extends StatelessWidget {
               //         ? await Get.delete<BookingController>()
               //         : null;
               // }
-              _args["index"].value = index;
+              _app.screenIndex.value = index;
               switch (index) {
                 case 1:
                   // BookingControllerBinding().dependencies();
@@ -147,6 +147,7 @@ class DashboardScreen extends StatelessWidget {
                 case 2:
                   break;
                 case 3:
+                  Get.reload<ProfileController>();
                   break;
                 default:
                   // HomeControllerBinding().dependencies();
